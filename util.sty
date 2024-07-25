@@ -1,0 +1,409 @@
+\ProvidesPackage{util}
+% change size of document if needed:
+%\renewcommand{\normalsize}{\fontsize{11pt}{14pt}\selectfont}
+
+
+
+\newcommand{\dis}{\displaystyle}
+
+
+
+
+
+\newif\if@compilingfullbook
+\DeclareOption{book}{\@compilingfullbooktrue}
+
+\ProcessOptions\relax
+
+\usepackage[UKenglish]{babel}
+% \usepackage[T1]{fontenc}
+\usepackage{fontspec}
+\usepackage[utf8]{inputenc}
+\if@compilingfullbook
+\else
+\usepackage[a4paper]{geometry} % , margin=20mm
+\fi
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\mathtoolsset{mathic}
+
+\RequirePackage{unicode-math}
+% for unicode-math symbols, see https://texdoc.org/serve/unimath-symbols.pdf/0
+
+% required for the \faktor command, normally amssymb would declare this but we're using unicode-math
+\newcommand{\diagup}{\char"27CB}
+
+% https://milde.users.sourceforge.net/LUCR/Math/unimathsymbols.html
+\setmainfont[Path=../../fonts/,
+	UprightFont=*-Regular,
+	BoldFont=*-Bold,
+	ItalicFont=*-Italic,
+	BoldItalicFont=*-BoldItalic,
+	]{STIXTwoText}
+\setmathfont[Path=../../fonts/]{STIXTwoMath-Regular}
+\setmathfont[Path=../../fonts/,range=\star]{TeXGyrePagellaMath}
+
+\usepackage{wrapfig}
+\usepackage{physics}
+\DeclareDocumentCommand\mathbf{m}{\symbfup{#1}} % make bold work for greek symbols
+\newcommand{\bm}[1]{\symbfup{#1}}
+\DeclareDocumentCommand\vnabla{}{\nabla} % use non-bold nabla for \grad, \curl etc.
+% Enabled to unify laplacian symbol between vector and scalar forms
+\DeclareDocumentCommand\dotproduct{}{\cdot} % use non-bold dot for scalar product to unify notation
+\DeclareDocumentCommand\crossproduct{}{\times} % use non-bold dot for scalar product to unify notation
+\usepackage{gensymb}
+\usepackage[shortlabels]{enumitem}
+%\setlist[enumerate,1]{label={(\arabic*)}}
+%\setlist[enumerate,2]{label={(\alph*)}}
+\usepackage{relsize}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage[parfill]{parskip}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+\usepgfplotslibrary{external}
+
+\usepackage{etoolbox}
+\usepackage{tikz-cd}
+\usepackage{qcircuit}
+\usetikzlibrary{external}
+\usetikzlibrary{cd}
+
+
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+
+% when building the books, start a new page before each section
+\if@compilingfullbook
+\AddToHook{cmd/section/before}{\clearpage}
+\fi
+
+% currently testing re-enabling this.
+% % for some reason, externalising when compiling the books takes forever, it's probably just too big a project
+% % todo: re-enable this when the book has been separated into parts IA and IB
+% \if@compilingfullbook
+% \else
+% 	\tikzexternalize[prefix=tikz/]
+% 	\AtBeginEnvironment{tikzcd}{\tikzexternaldisable}
+% 	\AtEndEnvironment{tikzcd}{\tikzexternalenable}
+% \fi
+
+\usepackage{../../tex_vendor/quiver}
+\usepackage{../../tex_vendor/tikzit}
+\input{../../tex_vendor/style.tikzstyles}
+
+\usepackage{faktor} % TODO: convert group quotients to this style
+\usepackage{mathpartir}
+\usepackage{scalerel}
+\usepackage{microtype}
+\usepackage[breakable]{tcolorbox}
+
+
+
+% Add the setspace package and set line spacing
+\usepackage{setspace}
+\setstretch{1.5} % Adjust the value as needed
+
+
+\usepackage{caption}  % Needed for \captionof
+
+
+
+
+
+
+\if@compilingfullbook
+% always echo the tex string instead of the PDF string when compiling book
+\newcommand{\texorpdfstring}[2]{#1}
+\else
+\usepackage[pdfa]{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linktoc=all,
+	linkcolor=green!40!black,
+}
+\fi
+
+\numberwithin{equation}{section} % make equations be numbered 1.1 not 1
+
+\newcommand{\tableofcontentsnewpage}{\tableofcontents\newpage}
+
+% increase spacing between toc number and title
+\makeatletter
+\renewcommand{\l@subsection}{\@dottedtocline{2}{1.8em}{3.2em}}
+\makeatother
+
+% create the theorem environments
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+
+\newtheorem*{claim}{Claim}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{corollary}{Corollary}
+\newtheorem*{example}{Example} % todo: convert `as an example...' to the example environment
+
+\theoremstyle{remark}
+\newtheorem*{note}{Note}
+\newtheorem*{remark}{Remark}
+
+\definecolor{lemma_col}{RGB}{170, 217, 255}
+\definecolor{thm_col}{RGB}{255, 196, 215}
+\definecolor{def_col}{RGB}{120, 232, 190}
+
+\ifdefined\nocolourboxes
+\else
+% we don't have `frame hidden` since we can't use `skins` from tcolorbox without compile errors
+\tcolorboxenvironment{definition}{colback=def_col!30,colframe=white,breakable,arc=0mm
+, before upper={\linespread{1.5}}, after upper={\par}}
+\tcolorboxenvironment{claim}{colback=lemma_col!30,colframe=white,breakable,arc=0mm
+, before upper={\linespread{1.5}}, after upper={\par}}
+\tcolorboxenvironment{proposition}{colback=lemma_col!30,colframe=white,breakable,arc=0mm
+, before upper={\linespread{1.5}}, after upper={\par}}
+\tcolorboxenvironment{lemma}{colback=lemma_col!30,colframe=white,breakable,arc=0mm
+, before upper={\linespread{1.5}}, after upper={\par}}
+\tcolorboxenvironment{corollary}{colback=lemma_col!30,colframe=white,breakable,arc=0mm
+, before upper={\linespread{1.5}}, after upper={\par}}
+%\tcolorboxenvironment{example}{colback=green!10,colframe=white,breakable,arc=0mm}
+\tcolorboxenvironment{theorem}{colback=thm_col!30,colframe=white,breakable,arc=0mm
+, before upper={\linespread{1.5}}, after upper={\par}}
+\fi
+
+
+
+% sets
+\newcommand{\C}{{\mathbb{C}}} 
+\newcommand{\N}{{\mathbb{N}}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\R}{{\mathbb{R}}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\F}{{\mathbb{F}}}
+
+% bases
+\newcommand{\mA}{\mathcal{A}}
+\newcommand{\mB}{\mathcal{B}}
+\newcommand{\mC}{\mathcal{C}}
+\newcommand{\mD}{\mathcal{D}}
+\newcommand{\mE}{\mathcal{E}}
+\newcommand{\mL}{\mathcal{L}}
+\newcommand{\mM}{\mathcal{M}}
+\newcommand{\mO}{\mathcal{O}}
+\newcommand{\mP}{\mathcal{P}}
+\newcommand{\mS}{\mathcal{S}}
+\newcommand{\mT}{\mathcal{T}}
+
+
+\usepackage[d]{esvect}
+
+
+
+% linear algebra
+\newcommand{\diag}{\operatorname{diag}}
+%\newcommand{\adj}{\operatorname{adj}}
+\newcommand{\rk}{\operatorname{rank}}
+\newcommand{\spn}{\operatorname{Span}}
+\newcommand{\proj}{\operatorname{proj}}
+\newcommand{\prp}{\operatorname{perp}}
+\newcommand{\refl}{\operatorname{refl}}
+\newcommand{\tra}{\operatorname{tr}}
+\newcommand{\nul}{\operatorname{Null}}
+\newcommand{\nully}{\operatorname{nullity}}
+\newcommand{\range}{\operatorname{Range}}
+\renewcommand{\ker}{\operatorname{Ker}}
+\newcommand{\col}{\operatorname{Col}}
+\newcommand{\row}{\operatorname{Row}}
+\newcommand{\cof}{\operatorname{cof}}
+\newcommand{\Num}{\operatorname{Num}}
+\newcommand{\Id}{\operatorname{Id}}
+\newcommand{\ipb}{\langle \thinspace, \rangle}
+\newcommand{\ipro}[2]{\left\langle #1, #2\right\rangle} % inner products
+\newcommand{\M}[2]{M_{#1\times #2}(\F)}
+\newcommand{\RREF}{\operatorname{RREF}}
+\newcommand{\cv}[1]{\begin{bmatrix} #1 \end{bmatrix}}
+\newenvironment{amatrix}[1]{\left[\begin{array}{@{}*{\numexpr#1-1}{c}|c@{}}}{\end{array}\right]}
+\newcommand{\am}[2]{\begin{amatrix}{#1} #2 \end{amatrix}}
+\newcommand{\dm}{\operatorname{dim}}
+
+
+% vectors
+\newcommand{\vzero}{\vv{0}}
+\newcommand{\vva}{\vv{a}} %
+\newcommand{\vvb}{\vv{b}} %
+\newcommand{\vc}{\vv{c}}
+\newcommand{\vd}{\vv{d}}
+\newcommand{\ve}{\vv{e}}
+\newcommand{\vf}{\vv{f}}
+\newcommand{\vg}{\vv{g}}
+\newcommand{\vh}{\vv{h}}
+\newcommand{\vl}{\vv{\ell}}
+\newcommand{\vm}{\vv{m}}
+\newcommand{\vn}{\vv{n}}
+\newcommand{\vp}{\vv{p}}
+\newcommand{\vq}{\vv{q}}
+\newcommand{\vr}{\vv{r}}
+\newcommand{\vs}{\vv{s}}
+\newcommand{\vt}{\vv{t}}
+\newcommand{\vvu}{\vv{u}} %
+\newcommand{\vvv}{{\vv{v}}} %
+\newcommand{\vw}{\vv{w}}
+\newcommand{\vx}{\vv{x}}
+\newcommand{\vy}{\vv{y}}
+\newcommand{\vz}{\vv{z}}
+
+% display
+\newcommand{\ds}{\displaystyle}
+\newcommand{\quand}{\quad\text{and}}
+\newcommand{\qandq}{\quad\text{and}\quad}
+
+
+
+
+
+
+
+
+\newcommand{\ddempty}{\mathrm{d}}
+\newcommand{\dn}[2]{\mathrm{d}^#1#2}
+\newcommand{\st}{\text{ s.t.
+	}}
+\newcommand{\contradiction}{\(\#\)}
+\newcommand{\genset}[1]{\left\langle{} #1 \right\rangle}
+\newcommand{\ngenset}[1]{\left\langle\!\left\langle{} #1 \right\rangle\!\right\rangle}
+\newcommand{\midd}{\,\middle|\,}
+\renewcommand{\vu}[1]{\hat{\vb{#1}}}
+\newcommand{\nhat}{\vu{n}}
+\newcommand{\rdot}{\dot{\vb{r}}}
+\newcommand{\rddot}{\ddot{\vb{r}}}
+\newcommand{\transpose}{\intercal}
+\newcommand{\acts}{\curvearrowright}
+\newcommand{\adjugate}[1]{\widetilde{#1}}
+\newcommand{\mathhuge}[1]{\mathlarger{\mathlarger{\mathlarger{#1}}}}
+\newcommand{\stcomp}[1]{{#1}^c}
+\newcommand{\prob}[1]{\mathbb{P}\left({#1}\right)}
+\newcommand{\psub}[2]{\mathbb{P}_{#1}\left({#2}\right)}
+\newcommand{\psubx}[1]{\psub{x}{#1}}
+\newcommand{\expect}[1]{\mathbb{E}\left[{#1}\right]}
+\newcommand{\esub}[2]{\mathbb{E}_{#1}\left[{#2}\right]}
+\newcommand{\esubx}[1]{\esub{x}{#1}}
+\newcommand{\Var}[1]{\Varop\left({#1}\right)}
+\newcommand{\Varsub}[2]{\Varop_{#1}\left({#2}\right)}
+\newcommand{\Cov}[1]{\Covop\left({#1}\right)}
+\newcommand{\Corr}[1]{\Corrop\left({#1}\right)}
+\newcommand{\convdist}{\xrightarrow{d}}
+\newcommand{\convprob}{\xrightarrow{\mathbb{P}}}
+\newcommand{\wildcard}{{}\cdot{}}
+\newcommand{\inner}[1]{\left\langle{#1}\right\rangle}
+\newcommand{\Markov}[1]{\Markovop\left({#1}\right)}
+\newcommand{\sstar}{{\star\star}}
+\newcommand{\Mob}{\text{M\"ob}}
+\newcommand{\Chat}{\widehat{\mathbb C}}
+\newcommand{\bound}{\ooalign{\hidewidth$\partial$\hidewidth\cr/}}
+\newcommand{\hhat}[1]{\hat{\hat{#1}}}
+\newcommand{\symmdiff}{\mathrel{\raisebox{1pt}{\( \mathsmaller\triangle \)}}}
+\newcommand{\cop}{\mathrm{op}}
+
+\DeclareMathOperator{\vecspan}{span}
+\DeclareMathOperator{\HCF}{HCF}
+\DeclareMathOperator{\LCM}{LCM}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\nullity}{null}
+\DeclareMathOperator{\Orb}{Orb}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\ccl}{ccl}
+\DeclareMathOperator{\Varop}{Var}
+\DeclareMathOperator{\Covop}{Cov}
+\DeclareMathOperator{\Corrop}{Corr}
+\DeclareMathOperator{\Markovop}{Markov}
+\DeclareMathOperator{\adj}{adj}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Log}{Log}
+\DeclareMathOperator{\Iff}{\mathrm{I}}
+\DeclareMathOperator{\IIff}{\mathrm{I\!I}}
+\DeclareMathOperator{\artanh}{artanh}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\graft}{graft}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Instr}{Instr}
+\DeclareMathOperator*{\esssup}{ess\ sup}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\fchar}{char}
+\DeclareMathOperator{\code}{code}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\coim}{coim}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\ob}{ob}
+\DeclareMathOperator{\mor}{mor}
+\DeclareMathOperator{\cod}{cod}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\mSpec}{mSpec}
+\DeclareMathOperator{\Proj}{Proj}
+\DeclareMathOperator{\res}{res}
+\DeclareMathOperator{\Con}{Con}
+\DeclareMathOperator{\cf}{cf}
+\DeclareMathOperator{\ran}{ran}
+\DeclareMathOperator{\Fn}{Fn}
+% https://github.com/wspr/unicode-math/issues/457
+\AtBeginDocument{%
+\newcommand{\dashrightarrow}{\mathrel{\rightdasharrow}}
+
+% Redefine a few things that the physics package does, but at the wrong time.
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+
+\let\divergence\relax
+\DeclareDocumentCommand\divergence{ g o d() }{ % Divergence
+	\IfNoValueTF{#1}{
+		\IfNoValueTF{#2}{
+			\IfNoValueTF{#3}{\vnabla \vdot}{\vnabla \vdot \quantity(#3)}
+			}
+			{\vnabla \vdot \quantity[#2] \IfNoValueTF{#3}{}{(#3)}}
+		}
+		{\vnabla \vdot #1 \IfNoValueTF{#2}{}{[#2]} \IfNoValueTF{#3}{}{(#3)}}
+	}
+\let\divisionsymbol\div % Rename \div [division symbol] in order to free up control sequence for \divergence
+\let\div\relax
+\DeclareDocumentCommand\div{}{\divergence} % Shorthand for \divergence
+}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\DeclarePairedDelimiter\Brackets{\lBrack}{\rBrack}
+
+% for arrows in the middle of the line
+\usetikzlibrary{decorations.markings}
+\tikzset{->-/.style={decoration={
+		markings,
+		mark=at position #1 with {\arrow{>}}},postaction={decorate}}}
+\usetikzlibrary{automata}
+\usetikzlibrary{positioning}
+
+\ifdefined\hideproofs
+\usepackage{environ}
+\usepackage{calc}
+\usepackage{pgf}
+\newlength{\parline}
+\newlength{\paroutindent}
+\newlength{\lineheight}
+\setlength{\lineheight}{\heightof{abcdefghijklmnoprstuvwxyz}}
+\NewEnviron{killproof}{%
+\setlength{\paroutindent}{\expandafter\parindent}%
+\setlength{\parline}{\heightof{\noindent\begin{minipage}{\linewidth}%
+			\setlength{\parindent}{\paroutindent}%
+			\BODY%
+		\end{minipage}}}%
+\pgfmathparse{int(round(\parline / (0.9*\lineheight)))}%
+\textit{Proof hidden (approx.\ \pgfmathresult{} lines).\\}
+}
+\let\proof\killproof
+\let\endproof\endkillproof
+\fi
