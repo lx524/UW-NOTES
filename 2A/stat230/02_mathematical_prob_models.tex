@@ -1,0 +1,76 @@
+\subsection{Sample Spaces and Probability}
+
+\begin{definition}[\textbf{Sample Space}]
+    A \textbf{sample space} $S$ is a set of distinct outcomes for an experiment or process, 
+    with the property that in a single trial, one and only one of these outcomes occurs.
+\end{definition}
+
+\begin{note}
+    \phantom{}
+    \begin{enumerate}
+        \item A sample space is NOT necessarily unique.
+        \item A discrete sample space consists of a finite or countable infinite set of outcomes.
+    \end{enumerate}
+    
+\end{note}
+
+\begin{example}
+    Roll a six-sided die, then $S = \{1, 2, 3, 4, 5, 6\}$, which is discrete.
+\end{example}
+
+\begin{definition}[\textbf{Simple/Compound Event}]
+    An event in a discrete sample space is a subset $A \subset S.$
+    If the event is indivisible so it contains only one point, e.g.
+    $A_1 = \{a_1\}$, we call it a \textbf{simple event}. 
+    An event $A$ made up of two or more simple events such as $A = \{a_1, a_2\},$
+    is called a \textbf{compound event}.
+\end{definition}
+
+\begin{definition}
+    Let $S = \{a_1, a_2, \ldots\}$ be a discrete sample space. The \textbf{probabilities}
+    $P(a_i)$, for $i = 1, 2, \ldots$ must satisfy the following two conditions:
+    \begin{enumerate}[label={(\arabic*)}]
+        \item $0 \leq P(a_i) \leq 1$
+        \item $\displaystyle \sum_{\text{all $i$}} P(a_i) = 1$
+    \end{enumerate}
+
+    The set of probabilities $\{P(a_i), i = 1, 2, \ldots\}$ is called
+    a \textbf{probability distribution} on $S$.
+\end{definition}
+
+\begin{note}
+    $P(*)$ is a function where domain = $S$.
+\end{note}
+
+\begin{definition}[\textbf{Probability $P(A)$ of an Event $A$}]
+    The probability $P(A)$ of an event $A$ is the sum of the probabilities for all the 
+    simple events that make up $A$ or $P(A) = \displaystyle \sum_{a \in A} P(a).$
+\end{definition}
+
+\begin{example}
+    For a fair die, each number is equally likely to occur. Therefore, $P(i) = \frac{1}{6}, i = 1, 2, \ldots, 6$.
+    We can define the compound event $B = \text{an even number is obtained}$. Then $B = \{2, 4, 6\}$, and $P(B) = P(2) + P(4) + P(6) = \frac{1}{2}$.
+\end{example}
+
+\begin{example}[\textbf{Card example}]
+    Randomly draw one card from a standard deck of 52 cards. Find the probability of the card is a club.    \\
+    \textbf{Solution 1: } Let $S = \left\{ \text{spade, heart, diamond, club} \right\}$. Then $P(\text{club}) = \frac{1}{4}$. \\
+    \textbf{Solution 2: } Let $S = \text{all 52 cards}$. Then $P(\text{club}) = \frac{13}{52} = \frac{1}{4}$ (the "club" event is compound here).   \\
+\end{example}
+
+\begin{example}[\textbf{Coin example}]
+    Toss a coin twice. Find the probability of getting exactly one head.    \\
+    \textbf{Solution: } Let $S = \left\{  \text{HH, HT, TH, TT} \right\}$ with all outcomes equally likely to happen. Then,
+    $P(1H) = P(\text{TH}) + P(\text{HT}) = \frac{1}{4} + \frac{1}{4} = \frac{1}{2}$.    \\
+    (Note that the sample space $\left\{  \text{0 heads, 1 head, 2 heads} \right\}$ will lead to a wrong answer as the outcomes are not equally likely) \\
+\end{example}
+
+We can use the term "odds" to describe probabilities in the following way.
+\begin{definition}[\textbf{Odds}]
+    The \textbf{odds in favour} of an event $A$ occuring is the ratio $\frac{P(A)}{1-P(A)}.$
+    The \textbf{odds against} the event is the reciprocal, $\frac{1-P(A)}{P(A)}$.
+\end{definition}
+
+In the card example above, the odds in favour of clubs are $1:3$, we could also say the odds against clubs are $3:1$. 
+
+\newpage

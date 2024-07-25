@@ -1,0 +1,610 @@
+\subsection{Random Variables and Probability Functions}
+
+\begin{definition}[\textbf{Random Variable}]
+    A \textbf{random variable} is a function that assigns a real number to each point
+    in a sample space $S$.
+\end{definition}
+
+\begin{example}
+    Suppose an experiment consists of tossing a coin 3 times. The sample space
+    \[S = \left\{ \text{HHH, THH, HTH, HHT, HTT, THT, TTH, TTT} \right\}.\]
+    Then $X = $ number of heads that occur would be a random variable, associated with range $A=\left\{ 0,1,2,3 \right\}$. \vspace{-5mm} \\
+    \begin{center}
+        \begin{tabular}{l|*{1}{c}}
+            Events & Outcomes from $S$ \\
+            \hline
+            $X=0$ & $\left\{ \text{TTT} \right\}$ \\
+            $X=1$ & $\left\{ \text{HTT, THT, TTH} \right\}$ \\
+            $X=2$ & $\left\{ \text{HHT, HTH, THH} \right\}$ \\
+            $X=3$ & $\left\{ \text{HHH} \right\}$
+        \end{tabular}
+    \end{center}
+    Ex. $P(X=1) = P(\text{HTT $\cup$ THT $\cup$ TTH}) = P(\text{HTT}) + P(\text{THT}) + P(\text{TTH}) = \frac{3}{8}$.
+\end{example}
+
+\begin{definition}[\textbf{Discrete Random Variables}]
+    \textbf{Discrete random variables} take integer values or, more generally, values
+    in a countable set.
+\end{definition}
+
+\begin{note}
+    A set is countable if its elements can be placed in a one-to-one correspondence
+    with a subset of the positive integers.
+\end{note}
+
+\begin{definition}[\textbf{Continuous Random Variables}]
+    \textbf{Continous random variables} take values in some interval of real numbers like
+    $(0, 1)$ or $(0, \infty)$ or $(-\infty, \infty)$. 
+\end{definition}
+
+\begin{note}
+    Cardinality of the real numbers in an interval is NOT countable.
+\end{note}
+
+\begin{definition}[\textbf{Probability Function \& Probability Distribution}]
+    \phantom{}  \\
+    Let $X$ be a discrete random variable with
+    $\operatorname{range}{(X)} = A$. The \textbf{probability function} of $X$ is the function
+    \[f(x) = P(X = x), \quad \text{defined $\forall \, x \in A$.}\]
+
+    The set of pairs $\{(x, f(x)) : x \in A\}$ is called the \textbf{probability distribution} of $X$.  \\
+    All probability functions must have two properties:
+    \begin{enumerate}
+        \item $f(x) \geq 0 \; \forall x \in A$.
+        \item $\dis \sum_{\text{all } x \in A} f(x) =1$.
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    It follows that $0 \leq f(x) \leq 1 \; \forall x \in A$.
+\end{remark}
+
+\begin{example}
+    The random variable $X$ has probability function given by \vspace{-5mm} \\
+    \begin{center}
+        \begin{tabular}{l|*{5}{c}}
+            $x$ & 0 & 1 & 2 & 3 & 4 \\
+            \hline
+            $f(x)$ & $0.1c$ & $0.2c$ & $0.5c$ & $c$ & $0.2c$ \\
+        \end{tabular}
+    \end{center}
+    
+    \begin{enumerate}[label=(\alph*)]
+        \item Find $c$. \\
+        \textbf{Solution:} Since $\dis \sum_{\text{all } x \in A} f(x) =1$. Then $0.1c + 0.2c + 0.5c + c + 0.2c = 1$.
+        This gives $c = 0.5$.
+        \item Find $P(X > 2)$. \\
+        \textbf{Solution:} $P(X > 2) = P(X \geq 3) = P(X = 3) + P(X = 4) = c + 0.2c = 1.2c = 0.6$.
+    \end{enumerate}
+\end{example}
+
+\begin{definition}[\textbf{Cumulative Distribution Function}]
+    The \textbf{cumulative distribution function} of the discrete random variable $X$
+    is the function usually denoted by $F(X)$.
+    \[F(x) = P(X \leq x) \quad \text{defined $\forall \, x \in \R$}\]
+\end{definition}
+
+In general, $F(x)$ can be obtained from $f(x)$ using:
+\[F(x) = P(X \leq x) = \displaystyle \sum_{u\leq x} f(u).\]
+
+\vspace{-5mm}
+
+\begin{theorem}[\textbf{Properties of a CDF $F(x)$}]
+    \phantom{}
+    \begin{enumerate}
+        \item $F(x)$ is a non-decreasing function of $x \; \forall x \in \R$. For example, $P(X \leq 8)$ cannot be less than $P(X \leq 7)$.
+        \item $0 \leq F(x) \leq 1 \; \forall x \in \R$.
+        \item $\dis \lim_{x \to -\infty} F(x) = 0$ and $\dis \lim_{x \to \infty} F(x) = 1$.
+    \end{enumerate}
+\end{theorem}
+
+We can also obtain $f(x)$ from $F(x)$. If $X$ takes on integer values then for values $x$ \st $x \in A$ and $x-1 \in A$, 
+\[f(x) = F(x) - F(x-1).\]
+In other words:
+\[P(X = x) = P(X \leq x) - P(X \leq x-1).\]
+We notice that $f(x)$ represents the size of the jump in $F(x)$ at the point $x$.
+
+
+\textbf{Plots of $f(x)$ and $F(x)$} \\
+For discrete random variables, the cdf $F(x)$ is represented as a step function, whereas the pf $f(x)$ is represented by a histogram.
+
+
+\subsection{Discrete Uniform Distribution}
+
+\textbf{Physical Setup:}  Suppose the range of $X$ is $\{a, a + 1, \ldots, b\}$ where $a$ and $b$ are integers and suppose all values are equally probable.
+Then $X$ has a Discrete Uniform distribution on the set $\{a, a + 1, \ldots, b\}$. The variables $a$ and $b$ are called the parameters of the distribution.
+
+\textbf{Probability Function:} There are \(b - a + 1\) values in the set \(\{a, a + 1, \ldots, b\}\) so the probability of each value must be \(\frac{1}{b - a + 1}\) in order that \(\dis \sum_{x=a}^{b} f(x) = 1\). Therefore
+
+\[
+    f(x) = P(X = x) = 
+    \begin{cases} 
+        \frac{1}{b - a + 1} & \text{for } x = a, a + 1, \ldots, b \\
+        0 & \text{otherwise}
+    \end{cases}
+\]
+
+\begin{example}
+    Suppose a fair die is thrown once and let $X$ be the number on the face. Find the cumulative distribution function of $X$. \\
+    \textbf{Solution:} $x = 1,2,3,4,5,6$ and $X \sim \text{Unif}[1,6]$.
+    \[
+        f(x) = P(X = x) = 
+        \begin{cases} 
+            \frac{1}{6} & \text{for } x = 1,2,\ldots,6 \\
+            0 & \text{otherwise}
+        \end{cases}
+    \]
+    $F(1) = P(X \leq 1) = P(X = 1) = \frac{1}{6}$ and $F(2) = P(X \leq 2) = P(X = 1) + P(X = 2) = \frac{2}{6}$. So
+    \[
+        F(x) = P(X \leq x) = 
+        \begin{cases} 
+            0 & \text{for } x < 1 \\
+            \frac{[x]}{6} & \text{for } 1 \leq x < 6 \\
+            1 & \text{for } x \geq 6 
+        \end{cases}.
+    \]
+\end{example}
+
+
+\subsection{Hypergeometric Distribution}
+
+\textbf{Physical Setup:}
+We have \textbf{\textit{N objects}} that can be classified into exactly \textbf{\textit{two}} distinct types, “success” (S) vs. “failure” (F).
+
+$r =$ \# of successes \quad and \quad $N-r=$ \# of failures.
+
+We pick \underline{$n$} objects at random \textbf{without} replacement. If X represents the number of successes, then X has a hypergeometric distribution.
+
+\begin{example}
+    Of the 120 applicants for a job, only 80 are qualified. In total, 5 applicants are picked at random for an interview. If X represents the number of qualified
+    applicants that are interviewed, then X has a hypergeometric distribution, where:
+    \begin{itemize}
+        \item $N = 120$
+        \item $r = 80$ since $N - r = 40$
+        \item $n = 5$
+        \item Possible values of $x$ are 0, 1, 2, 3, 4, 5.
+    \end{itemize}
+\end{example}
+
+\textbf{Probability Function:} Using counting techniques we note there are \(\binom{N}{n}\) points in the sample space
+\(S\) if we don't consider order of selection. There are \(\binom{r}{x}\) ways to choose the \(x\) success objects from the
+\(r\) available and \(\binom{N-r}{n-x}\) ways to choose the remaining \((n - x)\) objects from the \((N - r)\) failures. Hence
+
+\[
+    f(x) = P(X = x) = \frac{\binom{r}{x} \binom{N-r}{n-x}}{\binom{N}{n}}
+\]
+where $x \geq \operatorname{max}(0,n-(N-r))$ and $x \leq \operatorname{min}(r,n)$.
+
+\begin{note}
+    Do not need to memorize this formula because it will be easy to realize based on the given context.
+\end{note}
+
+\begin{example}[\textbf{Above Continued}]
+    \phantom{}\\
+    Find the probability that only two of the five selected will be qualified for the job. \vspace{2mm} \\ 
+    \textbf{Solution:} $P(X = 2) = \dis \frac{\binom{80}{2} \binom{40}{3}}{\binom{120}{5}} = 0.164$.
+\end{example}
+
+\begin{example}
+    In the game of Texas Hold'em, players are each dealt two private cards, and five community cards are dealt face-up on the table.
+    Each player makes the best 5-card hand they can with their two private cards and the five community cards.
+    What is the probability that a particular player can make a flush of spades (i.e. 5 spades or more)?
+
+    \textbf{Solution:} $X = \#$ of spades among 7 cards. $N = 52$, $r = 13$, $N-r = 39$, $n = 7$, and $x = 0,1,2,\ldots ,7$. \vspace{-4mm}
+    \begin{align*}
+        P(X \geq 5) &= P(X=5)+ P(X=6) + P(X=7) \\
+        &= \dis \frac{\binom{13}{5}\binom{39}{2} + \binom{13}{6}\binom{39}{1} + \binom{13}{7}\binom{39}{0}}{\binom{52}{7}} \\
+        &= 0.0076.
+    \end{align*}
+\end{example}
+
+\begin{example}
+    A manufacturer of auto parts just shipped 25 auto parts to a dealer. Later, it found out that 5 of those parts were defective. By the time the company
+    manager contacted the dealer, 4 auto parts from that shipment had been sold. What is the probability that 3 of those 4 parts were good parts and one was defective?
+
+    \textbf{Solution:} $X = \#$ of defectives selected, $N = 25$, $r = 5$, and $n = 4$. \vspace{-3mm}
+    \[
+        P(X = 1) = \dis \frac{\binom{5}{1}\binom{25-5}{4-1}}{\binom{25}{4}} = 0.45.
+    \]
+\end{example}
+
+
+\subsection{Binomial Distribution}
+
+\textbf{Physical Setup:} Suppose an experiment has \textbf{\textit{two}} possible outcomes, ``success'' and ``failure''.
+Let $P(\text{Success}) = p$ and hence $P(\text{Failure}) = 1-p$. Repeat the experiment \textbf{\textit{$n$ independent}} times.
+Let $X$ be the number of successes obtained, we say $X$ has a \textbf{\textit{Binomial distribution}}.
+
+
+We write \( X \sim Bin(n, p) \) with $n$ total trials and $p$ probability to success.
+
+\begin{note}
+    The \textbf{\textit{n individual}} experiments are called “trials” or “Bernoulli trials” and the process is
+    called a Bernoulli process or Binomial process. \\
+\end{note}
+
+
+Underlying assumptions for the Binomial Distribution: (Tims)
+\begin{itemize}
+    \item T: Two outcomes
+    \item I: Independent trials
+    \item M: Multiple trials
+    \item S: Same probability of success in each trial.
+\end{itemize}
+
+\begin{example}
+    A fair coin is tossed 12 times. Let X be the number of heads obtained. Then:
+    \begin{itemize}
+        \item Two outcomes: Head (success) vs. Tail (failure)
+        \item Independent trials: flips are independent of each other
+        \item Multiple trials: $n = 12$
+        \item Same $P(\text{Success})$ in each trial = $p$ = 0.5.
+    \end{itemize}
+    Thus, $X \sim Bin(12, 0.5)$ and $x = 0,1,2, \ldots ,12$. \\
+\end{example}
+
+\textbf{Probability Function:} There are $\binom{n}{x}$ arrangements of $x$ successes and $(n-x)$ failures over the $n$ trials.
+Each arrangement has probability $P^x(1-p)^{n-x}$. Therefore,
+\[f(x) = P(X=x) = \binom{n}{x}p^x(1-p)^{n-x} \quad \text{for $x = 0,1,\ldots ,n$ and $0 < p < 1$}.\]
+
+\begin{remark}
+    Check the above function by using the property that $\displaystyle \sum_{\text{all $x$}} f(x) = 1$ for $0 < p < 1$.
+\end{remark}
+
+\begin{example}
+    Seventy-five percent of students at a college with a large student population use Instagram.
+    A sample of five students from this college is selected. What is the probability that at least 3 use Instagram?
+
+    \textbf{Solution:} $X = \#$ of students that use Instagram among 5 selected. Then $X \sim Bin(5,0.75)$ for $x=0,1,\ldots ,5$.
+    \[P(X \geq 3) = P(X=3) + P(X=4) + P(X=5) = 1- P(X \leq 2).\]
+\end{example}
+
+\begin{remark}
+    \phantom{}\\
+    The probability of at least `x': $P(X \geq x) = 1 - P(X \leq (x-1))$. \\
+    The probability of more than `x': $P(X > x) = 1 - P(X \leq x)$.
+\end{remark}
+
+\textbf{Binomial vs. Hypergeometric}
+
+Similarities
+\begin{itemize}
+    \item Both have two types of outcomes, success and failure.
+    \item The experiment is repeated $n$ times.
+    \item $X$ records the number of successes.
+\end{itemize}
+
+Differences
+\begin{itemize}
+    \item Binomial reqires \textbf{independent} trials, where the probability of success is the same in each trial.
+    \item In Hypergeometric, the draws are made from a fixed number of objects $N$ \textbf{without} replacement. Hence, the trials are \textbf{not independent}. \\
+\end{itemize}
+
+\begin{example}
+    Suppose we have 20 cans of drinks placed in a big ice container such that the labels are not visible. It is known that 12
+    are coke and 8 are juice. We randomly pick 10 cans. Find the probability that 3 are coke.
+
+    \textbf{Solution:} Assume the draws are down without replacement (correct approach here). We have $N=20$, $r=12$, $N-r=8$, and $n=10$. So $X \sim \text{Hypergeo}(20, 12, 10)$.
+    
+    Thus, $P(X=3) = \frac{\binom{12}{3}\binom{8}{7}}{\binom{20}{10}} = 0.00953.$
+\end{example}
+
+\begin{remark}
+    If $N$ is large and $n$ (number of objects being drawn) is relatively small, then binomial can be used as an approximation for the hypergeometric. \\
+
+    \textbf{Rule of thumb:} If the sample size (number of trials) $n$ is at most $5\%$ of the population size, the experiment can be analyzed as though it were exactly a Binomial experiment.
+\end{remark}
+
+\begin{example}
+    Megan audits 130 clients during a year and finds irregularities for 26 of them.
+    \begin{enumerate}[label=(\alph*)]
+        \item Give an expression for the probability that 2 clients will have irregularities when 6 of her
+        clients are picked at random. \\
+        \textbf{Solution:} Let $X = \#$ of clients with irregularities among 6 selected, $N=130$, $r=26$, $n=6$.
+        \[P(X=2) = \frac{\binom{26}{2}\binom{130-26}{6-2}}{\binom{130}{6}} = 0.251.\]
+        \item Evaluate your answer to (a) using a suitable approximation. \\
+        \textbf{Solution:} $X \sim \text{Bin}(6,\frac{26}{130})$. Then we have
+        \[P(X=2)=\binom{6}{2}\left(\frac{26}{130}\right)^2 \left(1-\frac{26}{130}\right)^{6-2} = 0.246 \approx 0.25.\]
+        Notice that $\frac{n}{N} = \frac{6}{130} = 0.046 < 5\%$.
+    \end{enumerate}
+\end{example}
+
+
+\subsection{Negative Binomial Distribution}
+
+\textbf{Physical Setup:} similar to the Binomial Distribution. Do experiment until we obtain $k$ successes. However now, $X$ records the number of
+failures obtained before the $k$th success, $X \sim \text{NB}(k,p)$.
+
+\begin{example}
+    Draw cards with replacement until you get 3 Aces. Let $X = \#$ of Non-Aces that we obtain before the third Ace. Then the distribution of $X$ is
+    $X \sim \text{NB}(k=3, p=P(\text{Success})=\frac{4}{52})$ with $x =  0,1, \ldots$.
+\end{example}
+
+
+\textbf{Probability Function:} In total, we have $x$ failures and $k$ successes, so there are $x+k$ trials, the last trial \textbf{MUST} be a success.
+Hence in the first $x+k-1$ trials, we observe $x$ failures and $(k-1)$ successes. Therefore, there are $\binom{x+k-1}{x} = \binom{x+k-1}{k-1}$ arrangements, each arrangement has probability $p^k(1-p)^x$.
+Hence \[f(x) = P(X=x) = \binom{x+k-1}{x}p^k(1-p)^x \quad \text{for $x = 0,1,\ldots$ and $0 < p < 1$}.\]
+
+\begin{note}
+    An alternate version of Negative Binomial Distribution defined $X$ to be the total number of trials needed to get the $k$th success. We'll have something like: $X-4 \sim \text{NB}(k,p)$, 
+    where 4 is just an example here, representing the number of successes before the 5th success.
+\end{note}
+
+\textbf{Binomial vs. Negative Binomial}
+\begin{itemize}
+    \item \textbf{Binomial:} We know that we have $n$ trials in advance but do not
+    know the \# of successes we will obtain until after the experiment.
+    \item \textbf{Negative Binomial:} We know the number $k$ of successes in advance but do
+    not know the \# of trials that will be needed to obtain this \# of success until after the experiment.
+\end{itemize}
+
+
+\pagebreak
+
+\begin{example}
+    Two athletic teams, $A$ and $B$, play a best-of-three series of games (i.e the first team to win two games is the overall winner). Suppose team $A$ is the
+    stronger team and will win any game with probability 0.6, independently from other games. Let $X$ be the number of games lost before Team $A$ wins twice.
+    Find the probability that Team $A$ is the overall winner.
+
+    \textbf{Solution:} $X \sim \text{NB}(2, 0.6)$. \vspace{-5mm}
+    \begin{align*}
+        \text{Probability} &= P(X = 0) + P(X = 1) \\
+        &= \binom{0+2-1}{0}(0.6)^2(0.4)^0 + \binom{1+2-1}{1}(0.6)^2(0.4)^1
+    \end{align*}
+\end{example}
+
+\begin{example}
+    A startup is looking for 5 investors. Each investor will independently agree with probability 20\%.
+    A founder asks investors one at a time until they get 5 ``yes''.
+    Let $X$ be the total $\#$ of investors asked. Find $f(x)$ and $f(6)$.
+
+    \textbf{Solution:} Let $Y = \#$ of ``No''s until the 5th yes is obtained. Then $Y \sim \text{NB}(5,0.2)$, $y = 0,1,2,\ldots$.
+    And $X = Y + 5$. \vspace{-5mm}
+    \begin{align*}
+        f_X(x) &= P(X=x) \\
+        &= P(X = x = Y + 5) \\
+        &= P(Y = x - 5) \\
+        &= f_Y(x-5) \\
+        &= \binom{x-5+5-1}{x-5}p^5(1-p)^{x-5} \\
+        &= \binom{x-1}{x-5}p^5(1-p)^{x-5} \text{, $x = 5,6,7,\ldots$}
+    \end{align*}
+
+    $\dis f_x(6) = P(X = 6) = \binom{6-1}{6-5}0.2^5(1-0.2)^{6-5} = 0.00128$.
+    
+\end{example}
+
+
+
+\subsection{Geometric Distribution}
+
+\textbf{Physical Setup:} Independent Bernoulli trials, each having two possible outcomes (Success vs. Failure). 
+The probability, $p$, of success is the same each time. However, $X = \#$ of failures before the \textbf{FIRST} success
+(i.e. a Negative Binomial distribution with $k=1$). 
+
+We write $X \sim \text{Geo}(p)$.
+
+
+\textbf{Probability Function:} There is only the one way with $x$ failures followed by 1 success.
+\[f(x) = P(X=x) = (1-p)^x p \quad \text{for $x = 0,1,\ldots$ and $0<p<1$}.\]
+
+\begin{remark}
+    Alternatively, substitute $k=1$ in $f(x)$ for the Negative Binomial. \\
+\end{remark}
+
+
+In summary, we notice that Binomial, Negative Binomial and Geometric all assume:
+\begin{enumerate}
+    \item Two outcomes in each trial.
+    \item Independent Trails.
+    \item Each trial has the same probability of success. \\
+\end{enumerate}
+
+
+
+\begin{example}
+    A company receives $60\%$ of its orders over the internet.
+    \begin{enumerate}[label=(\alph*)]
+        \item What is the probability that the fifth order received is the first internet order? \\
+        \textbf{Solution:} Let $X = \#$ of orders not over the internet untill the first internet order. Then $X \sim \text{Geo}(0.6)$, $x=0,1,2,\ldots$.
+        We have $P(X = 4) = (0.6)^1 (1-0.6)^4$.
+        \item What is the probability that the eighth order received is the fourth internet order? \\
+        \textbf{Solution:} Let $Y =$ total number of orders before the 4th internet order. $Y \sim \text{NB}(4, 0.6)$. Then $\dis f_y(4) = P(Y = 4) = \binom{4+4-1}{4}(0.6)^4(1-0.6)^4$. Since we have 4 successes and 4 failures.
+        
+        Alternatively, $Y =$ number of non-internet orders before 4th internet. Then $Y-3 \sim \text{NB}(4,0.6)$.
+    \end{enumerate}
+\end{example}
+
+
+\subsection{Poisson Distribution from Binomial}
+
+\textbf{Physical Setup:} $X = \#$ of events of some type. The events occur according to some rate $\mu$, where $\mu > 0$.
+We write $X \sim \text{Poisson}(\mu)$.
+
+\textbf{Probability Function:} 
+\[
+    f(x) = P(X = x) = \dis \frac{e^{-\mu} \mu^x}{x!} \quad \text{for } x = 0, 1, \ldots
+\]
+where $\mu > 0$.
+
+\begin{remark}
+    Poisson arises from Binomial when $n \to \infty$ and $p \to 0$, $X \sim \text{Bin}(n, \frac{\mu}{n})$. $(\mu = np)$
+\end{remark}
+
+
+\begin{example}
+    Consider the Tim Hortons event ``Roll up the Rim''. We are told that 1 in 9 cups are winners.
+    Say you buy 100 cups, assuming they are independent, and use the Poisson approximation to solve for the probability that you get no more than 10 winning cups.
+
+    \textbf{Solution:} Find the exact probability using Binomial.
+
+    Let $X = \#$ of winning cups among 100. Then $X \sim \text{Bin}(100, \frac{1}{9})$. We have $P(X \leq 10) = 0.439$.
+
+    Now, use Poisson approximation. We have $\mu = np = 100 \times \frac{1}{9} = \frac{100}{9}$. Then
+
+    $P(X \leq 10) = P(X = 0) + P(X = 1) + \cdots + P(X = 10) = e^{-\frac{100}{9}}\left[ \frac{\mu^0}{0!} + \frac{\mu^1}{1!} + \cdots + \frac{\mu^{10}}{10!}\right] = 0.447$. \\
+\end{example}
+
+\begin{example}
+    If you buy a lottery ticket in 50 lotteries, in each of which your chance of winning a prize is
+    1/100, what is the (approximate) probability that you will win a prize
+    \begin{enumerate}[label=(\alph*)]
+        \item At least once,
+        \item Exactly once,
+        \item At least twice?
+    \end{enumerate}
+
+    \textbf{Solution:} We have $\mu = np = 50 \times \frac{1}{100} = 0.5$.
+    \begin{enumerate}[label=(\alph*)]
+        \item $P(X \geq 1) = 1 - P(X = 0) = 1 - \frac{e^{-0.5}(0.5)^0}{0!} = 0.3935$.
+        \item $P(X = 1) = \frac{e^{-0.5}(0.5)^1}{1!} = 0.3023$.
+        \item $P(X \geq 2) = 1 - P(X \leq 1) = 1 - P(X = 0) - P(X = 1) = 0.09017$. \\
+    \end{enumerate}
+\end{example}
+
+
+\begin{note}
+    \phantom{}\
+    \begin{enumerate}
+        \item If $p$ is close to 1, we can still use Poisson to approximate Binomial, simply by interchanging the labels ``success'' and ``failure''. Now, we can get $P(\text{success})$ is close to 0.
+    \end{enumerate}
+\end{note}
+
+\pagebreak
+
+\subsection{Poisson Distribution from Poisson Process}
+
+\begin{definition}[\textbf{Poisson Process}]
+    \phantom{}  \\
+    The following three conditions together define a \textbf{Poisson Process}:
+    \begin{enumerate}
+        \item \textbf{Independence:} the number of occurrences in non-overlapping intervals are independent.
+        \item \textbf{Individuality:} $P(\text{2 or more events in $(t, t+\Delta t)$}) = o(\Delta t)$ (close to 0) as $\Delta t \to 0$.
+        \item \textbf{Homogeneity or Uniformity:} Events occur at a homogeneous (uniform) rate $\lambda$ over time so that
+        $P(\text{one event in $(t, t+\Delta t)$}) = \lambda \Delta t + o(\Delta t)$.
+    \end{enumerate}
+\end{definition}
+
+In a Poisson process with rate of occurrence $\lambda$, the number of event occurrences $X$ in a time interval of length $t$
+has a Poisson distribution with $\mu = \lambda t$.
+
+\[f(x) = P(X=x) = \dis \frac{e^{-\lambda t} (\lambda t)^x}{x!} \text{, $x=0,1,2,\ldots$}\]
+
+
+\textbf{Interpreting $\mu$ and $\lambda$.}
+\begin{enumerate}
+    \item $\lambda$ refers to the intensity or rate of occurrence. It represents the average rate of occurrence of events per unit of time.
+    \item $\mu = \lambda t$ represents the average number of occurrences in $t$ units of time. \\
+\end{enumerate}
+
+
+\begin{example}
+    Suppose earthquakes recorded in Ontario each year follow a Poisson process with an average of 6 per year.
+    What is the probability that 7 will be recorded in a two year period?
+
+    \textbf{Solution:} Let $X = \#$ of earthquakes in the two year period ($t = 2$). And the intensity of earthquakes is $\lambda = 6$ per year.
+    So $\mu = \lambda t = 6 \times 2 = 12$ in two years. Then, $f(7) = \frac{e^{-12} 12^7}{7!} = 0.0437$. \\
+\end{example}
+
+
+The Poisson process also applies when ``events'' occur randomly in space. If $X$ represents the number of events in a volume or area in space of size $v$,
+and if $\lambda$ is the average number of events per unit voilume (or area), then $X$ has a Poisson distribution with $\mu = \lambda v$.
+
+The model is valid when we replace ``time'' by ``volume'' or ``area''.
+
+\pagebreak
+
+\begin{example}
+    Coliform bacteria occur in a river water with an average intensity of 1 bacteria per 10 cubic centimeters (cc) of water. Find:
+    \begin{enumerate}[label=(\alph*)]
+        \item The probability there are no bacteria in a 20cc sample of water which is tested.
+        
+        \textbf{Solution:} Let $X = \#$ of Coliform bacteria observed in a specified volume. Then $X \sim \text{Poi}(\lambda = 1 \text{ per 10cc})$.
+        We have $\mu = \lambda t = \frac{1}{10} \times 20 = 2$ per 20cc. So $P(X = 0) = \frac{e^{-2} 2^0}{0!} = e^{-2}$.
+        \item The probability there are 5 or more bacteria in a 50cc sample.
+        
+        \textbf{Solution:} $\mu = \lambda t = \frac{1}{10} \times 50 = 5$ per 50cc. Then \vspace{-5mm}
+        \begin{align*}
+            P(X \geq 5) &= 1 - P(X \leq 4) \\
+            &= 1 - \left[ P(X=0) + \cdots + P(X=4) \right] \\
+            &= 1 - e^{-5} \left[ \frac{5^0}{0!} + \frac{5^1}{1!} + \cdots + \frac{5^4}{4!} \right].
+        \end{align*}
+    \end{enumerate}
+\end{example}
+
+
+\textbf{Distinguishing Poisson from Binomial and Other Distributions}
+
+\begin{enumerate}
+    \item Can we specify in advance the maximum value which $X$ can take? \\
+    If we can, then the distribution is NOT Poisson. If there is no fixed upper limit, then might be Poisson.
+    \item Does it make sense to ask how often the event did not occur? \\
+    If it does make sense, the distribution is NOT Poisson. If it does not make sence, then might be Poisson.
+\end{enumerate}
+
+
+\subsection{Combining Other Models with the Poisson Process}
+
+\begin{example}
+    A very large (essentially infinite) number of ladybugs is released in a large orchard.
+    They scatter randomly so that on average a tree has 6 ladybugs on it. Trees are all the same size.
+    \begin{enumerate}[label=(\alph*)]
+        \item Find the probability a tree has > 3 ladybugs on it. \\
+        \textbf{Solution:} Poisson distribution with $\lambda = 6$ and $v = 1$ (that is, any tree has a ``volume'' of one unit). So $\mu = \lambda v = 6$.
+        Then $P(X > 3) = 1 - P(X \leq 3) = 1 - e^{-6}\left[ \frac{6^0}{0!} + \frac{6^1}{1!} + \frac{6^2}{2!} + \frac{6^3}{3!} \right] = 0.8488$.
+        \item When 10 trees are picked at random, what is the probability that 8 of these trees have > 3 ladybugs on them? \\
+        \textbf{Solution:} Binomial distribution where success means >3 ladybugs on a tree. We have $X \sim \text{Bin}(10, 0.8488)$.
+        Then $P(X = 8) = \binom{10}{8}(0.8488)^8 (1-0.8488)^2 = 0.2772$.
+        \item Trees are checked until 5 with > 3 ladybugs are found. Let $X$ be the total number of trees checked. Find the probability function, $f(x)$. \\
+        \textbf{Solution:} $X-5 \sim \text{NB}(5, 0.8488)$ with $(x-5)$ failures. Then
+        \begin{align*}
+            f(x) &= \binom{x-5+5-1}{x-5}(0.8488)^5 (1-0.8488)^{x-5} \\
+            &= \binom{x-1}{x-5}(0.8488)^5 (0.1512)^{x-5} \\
+            &= \binom{x-1}{4}(0.8488)^5 (0.1512)^{x-5} \text{, $x = 5,6,7,\ldots$}
+        \end{align*}
+        \item Find the probability a tree with > 3 ladybugs on it has exactly 6. \\
+        \textbf{Solution:} Let $A = {\text{6 ladybugs}}$ and $B = {\text{more than 3 ladybugs}}$. \\
+        Then, $P(A|B) = \frac{P(A \cap B)}{P(B)} = \frac{P(A)}{P(B)} = \frac{\frac{e^{-6} 6^6}{6!}}{0.8488} = 0.1892$.
+        \item On 2 trees there are a total of $t$ ladybugs. Find the probability that $x$ of these are on the first tree. \\
+        \textbf{Solution:}
+        \begin{align*}
+            P(\text{$x$ on first tree} | \text{total of $t$}) &= \frac{P(\text{$x$ on first tree} \cap \text{total of $t$})}{P(\text{total of $t$})} \\
+            &= \frac{P(\text{$x$ on first tree} \cap \text{$t-x$ on second tree})}{P(\text{total of $t$})} \\
+            &= \frac{P(\text{$x$ on first tree}) \cdot P(\text{$t-x$ on second tree})}{P(\text{total of $t$})}
+        \end{align*}
+        Use Poisson distribution with $\mu = 6 \times 2 = 12$ in the denominator since there are two trees.
+        \begin{align*}
+            &= \frac{ \left( \frac{e^{-6} 6^x}{x!} \right) \left( \frac{e^{-6} 6^{t-x}}{(t-x)!} \right) }{\frac{e^{-12} 12^t}{t!}} \\
+            &= \frac{t!}{x!(t-x)!} \left( \frac{6}{12} \right)^x \left( \frac{6}{12} \right)^{t-x} \\
+            &= \binom{t}{x} \left( \frac{1}{2} \right)^x \left( 1 - \frac{1}{2} \right)^{t-x} \text{ for $x = 0,1,\ldots, t$}. 
+        \end{align*}
+        \begin{remark}
+            We can also let $X = \#$ of ladybugs on the first tree, then $X \sim \text{Bin}(t, 0.5)$. Since the probability of a ladybug on the first tree is just 0.5 as there are two trees.
+        \end{remark}
+    \end{enumerate}
+\end{example}
+
+
+\subsection{Summary of Probability Functions for Discrete Random Variables}
+
+\begin{center}
+    \begin{tabular}{l l}
+        \textbf{Name} & \textbf{Probability Function} \\ \hline \addlinespace \addlinespace
+        Discrete Uniform & $\dis f(x) = \frac{1}{b - a + 1} \quad \text{for } x = a, a + 1, a + 2, \ldots, b \quad (b > a)$ \vspace{10pt}    \\
+        Hypergeometric & $\dis f(x) = \frac{\binom{r}{x} \binom{N-r}{n-x}}{\binom{N}{n}} \quad \text{for } x = \max(0, n - (N - r)), \ldots, \min(n, r)$ \vspace{10pt} \\
+        Binomial & $\dis f(x) = \binom{n}{x} p^x(1 - p)^{n-x} \quad \text{for } x = 0, 1, 2, \ldots, n \quad (0 < p < 1)$ \vspace{10pt}  \\
+        Negative Binomial & $\dis f(x) = \binom{x+k-1}{x} p^k(1 - p)^x \quad \text{for } x = 0, 1, 2, \ldots \quad (0 < p < 1)$ \vspace{10pt}    \\
+        Geometric & $\dis f(x) = p(1 - p)^x \quad \text{for } x = 0, 1, 2, \ldots \quad (0 < p < 1)$ \vspace{10pt}   \\
+        Poisson & $\dis f(x) = \frac{e^{-\mu}\mu^x}{x!} \quad \text{for } x = 0, 1, 2, \ldots \quad (\mu > 0)$ \vspace{30pt}  \\
+    \end{tabular}
+\end{center}
+
+% An example of drawing probability function table:   \\
+% \begin{tabular}{l|*{5}{c}}
+%     $x$ & 1 & 2 & 3 & 4 & 5 \\
+%     \hline
+%     $F(x)$ & $0.1k$ & $0.2$ & $0.5k$ & $k$ & $4k^2$ \\
+% \end{tabular}
+
+
+
+\newpage

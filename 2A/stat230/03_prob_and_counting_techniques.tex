@@ -1,0 +1,219 @@
+\begin{remark}
+    $\displaystyle P(A) = \frac{\text{\# of oucomes in $A$}}{\text{\# of outcomes in $S$}}$
+\end{remark}
+
+\subsection{Addition and Multiplication Rules}
+
+\begin{definition}[\textbf{Counting Rules}]
+    \phantom{}
+    \begin{enumerate}
+        \item \textbf{Addition Rule:} Suppose we can do job $1$ in $p$ ways.
+        Then we can do either job $1$ \textbf{OR} job $2$ (but not both), in $p + q$ ways.
+        \item \textbf{Multiplication Rule:} Suppose we can do job $1$ in $p$ ways and,
+        for each of these ways, we can do job $2$ in $q$ ways. Then we can do both
+        job $1$ \textbf{AND} job $2$ in $p \times q$ ways.
+    \end{enumerate}
+\end{definition}
+
+\begin{note}
+    \phantom{}
+    \begin{itemize}
+        \item "OR": interpreted as \textbf{addition}.
+        \item "AND": interpreted as \textbf{multiplication}.
+        \item "With" replacement: every time an object is selected, we put it back into the pool of possible objects (could be picked again).
+        \item "Without" replacement: every time an object is selected, it is NOT put back.
+    \end{itemize}
+\end{note}
+
+\begin{example}
+    A bag contains 3 blue marbles and 5 red marbles. Find the probability of selecting two blue marbles \textbf{with and without} replacement.  \\
+    \textbf{Solution: } With replacement, $P(BB) = P(B \text{ AND } B) = \frac{3}{8} \times \frac{3}{8} = \frac{9}{64}$.    \\
+    \phantom{\textbf{Solution : }}Without replacement, $P(BB) = P(B \text{ AND } B) = \frac{3}{8} \times \frac{2}{7} = \frac{3}{28}$.
+\end{example}
+
+
+\subsection{Counting Arrangements or Permutations}
+
+\begin{definition}[Permutation]
+    A \textbf{permutation} is an arrangement of objects in a definite order (order matters and selection is done without replacement).
+\end{definition}
+
+\begin{example}
+    How many different ordered arrangements of the letters a, b, and c are possible.    \\
+    \textbf{Solution: } $\underbrace{\text{\underline{3} \underline{2} \underline{1}}}_{\text{letters available for each selection}}$.
+    So, $3 \times 2 \times 1 = 6$ ways. \\
+\end{example}
+
+To generalize, in each case we count the \# of arrangements by counting the \# of ways we can 
+fill the positions in the arrangement. Suppose we have $n$ symbols, we can make:
+\begin{itemize}
+    \item $n! = n \times (n-1) \times \cdots \times 1$ arrangements of length $n$ using each symbol once and only once
+    (the \# of permutations of $n$ distinct objects).
+    \item $n^{(k)} = n \times (n-1) \times \cdots \times (n-k+1)$ arrangements of length $k$ using each symbol at most once.
+    Note that $n^{(k)} = \frac{n!}{(n-k)!} = \prescript{n}{}{P}_{k}$ (read "$n$ to $k$ factors").
+    \item $n^k = n \times n \times \cdots \times n$ arrangements of length $k$ using each symbol more than once.    \\
+\end{itemize}
+
+\begin{theorem}[\textbf{Stirling's Approximation}]
+    \phantom{}  \\
+    For large $n$ there is an approximation to $n!$, it states that $n!$ is \textbf{asymptotically equivalent} to $\dis (\frac{n}{e})^n \sqrt{2 \pi n}$.
+    Note that the sequence $\{a_n\}$ is asymptotically equivalent to the sequence $\{b_n\}$ if $\dis \lim_{n \to \infty}\frac{a_n}{b_n} = 1$.
+\end{theorem}
+
+\begin{note}
+    This implies that as $n \to \infty$, the approximation becomes better and better    \\
+    (i.e. $\dis \lim_{n \to \infty}\frac{(\frac{n}{2})^n \sqrt{2 \pi n}}{n!} = 1$). \\
+\end{note}
+
+\begin{example}
+    A pin number of length four is formed by randomly selecting four digits from the set $\{0, 1, 2, \ldots, 9\}$ \textbf{with replacement}.
+    Find the probability of the events:
+    \begin{itemize}
+        \item $A$: the pin number is even.
+        \item $B$: the pin number contains at least one 1.
+    \end{itemize}
+    \textbf{Solution: }
+    \begin{enumerate}[label={(\alph*)}]
+        \item $P(A) = \frac{\text{\# of pins that are even}}{\text{\# of pins in the sample space}} = \frac{10 \times 10 \times 10 \times 5}{10 \times 10 \times 10 \times 10} = \frac{1}{2}$.
+        \item We can use the complement. Find the pin numbers that do not contain 1. \\ 
+        $P(B) = 1 - P(\overline{B}) = 1 - \frac{9^4}{10^4} = 0.3439$.
+    \end{enumerate}
+    Exercise: try this \textbf{without replacement}.
+\end{example}
+
+\newpage
+
+\begin{example}
+    Five separate awards (best scholarship, best leadership qualities, and so on) are to be 
+    presented to selected students from a class of 30. How many different outcomes are possible if:
+
+    \begin{enumerate}[label={(\alph*)}]
+        \item A student can receive any number of awards?   \\
+        \textbf{Solution: } $30^5$.
+        \item Each student can receive at most 1 award?     \\
+        \textbf{Solution: } $30 \times 29 \times 28 \times 27 \times 26 = 30^{(5)}$.
+    \end{enumerate}
+\end{example}
+
+\begin{example}
+    \phantom{}
+    \begin{enumerate}[label={(\alph*)}]
+        \item In how many ways can 3 boys and 3 girls sit in a row? \\
+        \textbf{Solution: } $6! = 120$.
+        \item In how many ways can 3 boys and 3 girls sit in a row if the boys and the girls are each to sit together? \\
+        \textbf{Solution: } $2! \times 3! \times 3! = 72$.
+        \item In how many ways if only the boys must sit together? \\
+        \textbf{Solution: } $4! \times 3! = 144$.
+        \item In how many ways if no two people of the same sex are allowed to sit together? \\
+        \textbf{Solution: } $3! \times 3! \times 2! = 72$.
+    \end{enumerate}
+    
+\end{example}
+
+
+\subsection{Counting Subsets or Combinations}
+
+\begin{definition}[Combination]
+    A combination is an unordered selection of $k$ objects chosen from $n$ objects.
+\end{definition}
+
+\begin{remark}[\textbf{Number of subsets of size $k$}]
+    We use $\displaystyle \prescript{n}{}{C}_{k} = \binom{n}{k}$ to
+    denote the \# of subsets of size $k$ that can be selected from a set of $n$ objects.
+    Then, $m \times k! = n^{(k)}$ and we have
+    \[\prescript{n}{}{C}_{k} = \binom{n}{k} = \frac{n^{(k)}}{k!} = \frac{n!}{k!(n-k)!}.\]
+\end{remark}
+
+\textbf{Properties of $\binom{n}{k}$: }
+\begin{enumerate}
+    \item $\binom{n}{k} = \frac{n^{(k)}}{k!} = \frac{n!}{k!(n-k)!} = \frac{n(n-1)\cdots(n-k+1)}{k!}$ if $n \in \R$ and $k$ is a non-negative integer
+    \item $\binom{n}{k} = \binom{n}{n-k}$ for all $k = 0, 1, \ldots, n$
+    \item $\binom{n}{0} = \binom{n}{n} = 1$
+    \item $\binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k}$
+    \item \textbf{Binomial Theorem: } $(1 + x)^n = \binom{n}{0} + \binom{n}{1}x + \binom{n}{2} + \cdots + \binom{n}{n}x^n$
+\end{enumerate}
+
+
+\subsection{Number of Arrangements when Symbols are Repeated}
+
+\begin{example}
+    Suppose the letters of the word "STATISTICS" are arranged at random. Find the 
+    probability of the event G that the arrangement begins and ends with "S". \\
+    \textbf{Solution: } $P(G) = \frac{\text{\# of subsets in G}}{\text{\# of subsets in the sample space}}$. \vspace{1mm} \\
+    The number of equally probable outcomes in the sample space $S$ is:
+    \[
+        \underbrace{\binom{10}{3}}_{\text{S}} \underbrace{\binom{7}{3}}_{\text{T}} \underbrace{\binom{4}{2}}_{\text{I}}
+        \underbrace{\binom{2}{1}}_{\text{C}} \underbrace{\binom{1}{1}}_{\text{A}} =
+        \frac{10!}{3!7!} \frac{7!}{3!4!} \frac{4!}{2!2!} \frac{2!}{1!1!} \frac{1!}{1!0!} = \frac{10!}{3!3!2!1!1!}.
+    \]
+    The number of arrangements in $G$:
+    \[
+        \underbrace{\binom{8}{1}}_{\text{S}} \underbrace{\binom{7}{3}}_{\text{T}} \underbrace{\binom{4}{2}}_{\text{I}}
+        \underbrace{\binom{2}{1}}_{\text{C}} \underbrace{\binom{1}{1}}_{\text{A}} = \frac{8!}{1!3!2!1!1!}.
+    \]
+
+    Thus, $P(G) = \dis \frac{\frac{8!}{1!3!2!1!1!}}{\frac{10!}{3!3!2!1!1!}} = \frac{1}{15}$. \\
+\end{example}
+
+\begin{remark}[\textbf{Number of arrangements when symbols are repeated}]
+    \phantom{}  \\
+    If we have $n_i$ symbols of type $i$, $i = 1, 2, \ldots, k$ with $n_1 + n_2 + \cdots + n_k = n$,
+    then the \# of arrangements using all of the symbols is
+    \[\displaystyle \binom{n}{n_1}\binom{n - n_1}{n_2} \binom{n - n_1 - n_2}{n_3} 
+    \cdots \binom{n_k}{n_k} = \frac{n!}{n_1! n_2! \cdots n_k!}.
+    \] \\
+\end{remark}
+
+\begin{example}
+    Find the probability a bridge hand (13 cards picked at random from a standard deck of 52 cards without replacement) has
+    \begin{enumerate}[label={(\alph*)}]
+        \item at least 1 Ace.
+        \item 6 spades, 4 hearts, 2 diamonds and 1 club.
+        \item a 6-4-2-1 spilt between the 4 suits.
+    \end{enumerate}
+    \textbf{Solution (a): } \vspace*{-5mm}
+    \begin{align*}
+        P(\text{at least 1 Ace}) &= 1 - P(\text{0 Aces}) \\
+        &= 1 - \frac{\binom{4}{0} \binom{52-4}{13}}{\binom{52}{13}}
+    \end{align*}
+
+    \textbf{Solution (b): } \vspace*{-3mm}
+    $\frac{\binom{13}{6} \binom{13}{4} \binom{13}{2} \binom{13}{1}}{\binom{52}{13}}$. \\
+
+    \textbf{Solution (c): } \vspace*{-3mm}
+    $4! \times \binom{13}{6}\binom{13}{4}\binom{13}{2}\binom{13}{1}$. \vspace{2mm}
+\end{example}
+
+\begin{example}
+    If 12 people are to be divided into 3 committees of respective sizes 3, 4, and 5,
+    how many divisions are possible? \\
+    \textbf{Solution: }
+    $\binom{12}{3} \binom{9}{4} \binom{5}{5} = 27720$.
+\end{example}
+
+\begin{example}
+    A person has 8 friends, of whom 5 will be invited to a party. 
+    \begin{enumerate}[label=(\alph*)]
+        \item How many choices are there if 2 friends are feuding and will not attend together? \\
+        \textbf{Solution: } 
+        $\binom{8}{5} - \binom{2}{2}\binom{6}{3} = 36$ ways (sample space - both feuding friends come).
+        \item How many choices are there if 2 of the friends will only attend together? \\
+        textbf{Solution: }
+        $\underbrace{\binom{2}{2} \binom{6}{3}}_{\text{Both are invited}}  + \underbrace{\binom{2}{0} \binom{6}{5}}_{\text{Both don't go}}  = 20 + 6 = 26$. 
+    \end{enumerate}
+\end{example}
+
+\begin{example}
+    There are 5 blue beads and 4 green beads to be arranged in a row on a string. The two ends of
+    the string are not connected. Beads with the same colour are indistinguishable. Find the probability of
+    the following events:
+    \begin{enumerate}[label=(\alph*)]
+        \item A = “All 5 blue beads are adjacent to each other”. \vspace{1mm} \\
+        \textbf{Solution: } $P(A) = \frac{\binom{5}{1} \binom{4}{4}}{\binom{9}{5} \binom{4}{4}} = \frac{\frac{5!}{1!4!}}{\frac{9!}{1!4!}}$.
+        \item B = “None of the green beads is adjacent to any other green beads”. \vspace{1mm} \\
+        \textbf{Solution: } $P(B) = \frac{\binom{6}{4}}{\binom{9}{5} \binom{4}{4}}$.
+    \end{enumerate}
+    
+\end{example}
+
+\newpage
