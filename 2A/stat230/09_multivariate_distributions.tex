@@ -78,7 +78,7 @@
 \begin{note}
     \phantom{}\
     \begin{itemize}
-        \item $\displaystyle \sum_{\text{all } x} f_X(x) = \displaystyle \sum_{\text{all } y} f_Y(x) = \displaystyle \sum_{\text{all } (x,y)} f_{X,Y}(x,y) = 1$.
+        \item $\displaystyle \sum_{\text{all } x} f_X(x) = \displaystyle \sum_{\text{all } y} f_Y(y) = \displaystyle \sum_{\text{all } (x,y)} f_{X,Y}(x,y) = 1$.
     \end{itemize}
 \end{note}
 
@@ -87,8 +87,8 @@
     \phantom{}\\
     Given the joint probability function of $X$ and $Y$, the \textbf{Marginal distributions} are give by
     \begin{itemize}
-        \item $f_1(x) = f_X(x) = \displaystyle \sum_{\text{all } y} f_X(x)$, with $x$ fixed.
-        \item  $f_2(y) = f_Y(y) = \displaystyle \sum_{\text{all } x} f_X(x)$, with $y$ fixed.
+        \item $f_1(x) = f_X(x) = \displaystyle \sum_{\text{all } y} f(x,y)$, with $x$ fixed.
+        \item  $f_2(y) = f_Y(y) = \displaystyle \sum_{\text{all } x} f(x,y)$, with $y$ fixed.
     \end{itemize}
 \end{definition}
 
@@ -234,7 +234,7 @@ This can also be extended to functions beyond two random variables. \\
 
     i.e. The company wants to know how many defective parts are produced, but can only know the number which are actually detected.
 
-    \textbf{Solution:} The author was also studying for Actsc 231, so did not have enough time to bother writing out the entire solution. But here is the answer:
+    \textbf{Solution:} The author was also studying for Actsc 231, so did not have enough time to bother writing out the entire solution. But if you work really hard, you'll have a chance to get:
     \[
         f(x|y) = \frac{e^{-\mu (1-p)} (\mu (1-p))^{x-y}}{(x-y)!} \quad \text{for x = y, y+1, \ldots}
     \]
@@ -278,7 +278,7 @@ Each of these arrangements has probability $p_1^{x_1}p_2^{x_2} \cdots p_k^{x_k}$
 \[
     f(x_1,\ldots ,x_k) = \frac{n!}{x_1! x_2! \cdots x_k!} p_1^{x_1}p_2^{x_2} \cdots p_k^{x_k}
 \]
-with $x_i = 0,1,\ldots ,n$ and $\displaystyle \sum_{i=1}^{k} x_1 = n$.
+with $x_i = 0,1,\ldots ,n$ and $\displaystyle \sum_{i=1}^{k} x_i = n$.
 Note that $\displaystyle \sum f(x_1,\ldots ,x_k) = 1$.
 
 \pagebreak
@@ -303,7 +303,7 @@ If we are interested in finding the marginal distribution of one variable, $X_2$
     \end{itemize}
 \end{enumerate}
 
-What about $T = X_1 + X_2$? \\
+\textbf{What about $T = X_1 + X_2$?} \\
 Using a similar argument, we could make our ``success'' =  an occurrence in one of the first two types, whereas anything else is considered a ``failure''.
 
 Let $T = \#$ of type 1 or type 2 outcomes among $n$ trials. Then $T \sim \text{Binomial}(n,p_1 + p_2)$.
@@ -311,8 +311,11 @@ Let $T = \#$ of type 1 or type 2 outcomes among $n$ trials. Then $T \sim \text{B
     \item Two outcomes: type 1 \& 2 vs. anything else.
     \item Independent trials.
     \item Multiple trials: $n$.
-    \item Same P $P(\text{success}) = P(\text{type 1} \cup \text{type 2}) = P(\text{type 1}) + P(\text{type 2}) = p_1 + p_2$.
+    \item Same  $P(\text{success}) = P(\text{type 1} \cup \text{type 2}) = P(\text{type 1}) + P(\text{type 2}) = p_1 + p_2$.
 \end{itemize}
+
+\textbf{What about the conditional distribution of $X_1$ given $T = t$?} \\
+$X_1 | T=t \sim \text{Bin}(t, \frac{p_1}{p_1 + p_2})$. So $f(x_1|t) = \binom{t}{x_1} \left( \frac{p_1}{p_1 + p_2} \right)^{x_1} \left( 1 - \frac{p_1}{p_1 + p_2} \right)^{t - x_1}$.
 
 
 \pagebreak
@@ -340,7 +343,7 @@ Let $T = \#$ of type 1 or type 2 outcomes among $n$ trials. Then $T \sim \text{B
             &= 1 - \left[ \binom{8}{0} (0.5)^0 (0.5)^8 + \binom{8}{1} (0.5)^1 (0.5)^7 + \binom{8}{2} (0.5)^2 (0.5)^6 \right]
         \end{align*}
         \item $X_1,X_2 \sim \text{Multinomial}(n=8,p_1=0.2,p_2=0.5,1-p_1 -p_2 = 0.3)$. \\
-        Therefore, $f(x_1,x_2) = \frac{8!}{x_1! x_2!}0.2^{x_1}0.5^{x_2}$.
+        Therefore, $f(x_1,x_2) = \frac{8!}{x_1! x_2! (8-x_1 - x_2)!}0.2^{x_1}0.5^{x_2x} 0.3^{8-x_1-x_2}$.
     \end{enumerate}
 \end{example}
 
@@ -443,7 +446,7 @@ Extending the definition of expected value to multiple discrete random variables
 \begin{figure}[htbp]
     \center
     \includegraphics[scale=0.5]{img/cov.png}
-    \caption{Random points $(X,Y)$ with covariance 0.5, variances 1.}
+    \caption{Random points $(X,Y)$ with $\Cov{X,Y} = 0.5$, variances 1.}
 \end{figure}
 
 
@@ -524,7 +527,7 @@ a rescaled version of the covariance, scaled to lie in the interval $[-1, 1]$.
     \textbf{Solution:} $\expect{Y} = (1 \times 0.7) = 0.7$, $\expect{X} = (1 \times 0.5) + (2 \times 0.3) = 1.1$, $\expect{XY} = (1 \times 1 \times 0.35) + (2 \times 1 \times 0.21) = 0.77$. 
 
     $\implies \Cov{X,Y} = 0.77 - (0.7 \times 1.1) = 0$. So $\rho = \Corr{X,Y} = \frac{0}{\sigma_X \sigma_Y} = 0$. \\
-    Therefore, $X$ and $Y$ have no linear association (and $X$ and $Y$ are independent).
+    Therefore, $X$ and $Y$ have no linear association (and in fact, $X$ and $Y$ are independent, we can show this for all $(x,y)$).
 \end{example}
 
 \subsection{Mean and Variance of a Linear Combination of Random Variables}
@@ -738,7 +741,30 @@ An indicator variable is a binary variable (0 or 1) that indicates whether or no
     \[
         \expect{X_i X_j} = \displaystyle \sum_{x_i = 0}^{1} \displaystyle \sum_{x_j=0}^{1} x_i x_j f(x_i,x_j) = f(1,1) = P(X_i = 1, X_j = 1) = P(A \cap B).
     \]
-    where $A = \text{letter $i$ is placed in envelop $i$}$, $B = \text{letter $j$ is placed in envelop $j$}$.
+    where $A = \text{letter $i$ is placed in envelop $i$}$, $B = \text{letter $j$ is placed in envelop $j$}$. Then,
+    \[
+        \expect{X_i X_j} = P(A) P(B|A) = \frac{1}{N} \cdot \frac{1}{N-1} = \frac{1}{N(N-1)}.
+    \]
+
+    \pagebreak
+
+    Now, we can calculate the covariance:
+    \begin{align*}
+        \Cov{X_i,X_j} &= \expect{X_i X_j} - \expect{X_i}\expect{X_j} \\
+        &= \frac{1}{N(N-1)} - \left( \frac{1}{N} \right) \left( \frac{1}{N} \right) \\
+        &= \frac{1}{N} \left( \frac{1}{N-1} \frac{1}{N} \right) \\
+        &= \frac{1}{N^2 (N-1)}.
+    \end{align*}
+    Therefore,
+    \begin{align*}
+        \Var{X} = \Var{\displaystyle \sum_{i=1}^{n} X_i} &= \displaystyle \sum_{i=1}^{n} \Var{X_i} + 2 \displaystyle \sum_{i < j}^{n} \Cov{X_i,X_j} \\
+        &= \displaystyle \sum_{i=1}^{n} \frac{1}{N} \left( 1 - \frac{1}{N} \right) + 2 \displaystyle \sum_{i<j}^{n} \frac{1}{N^2 (N-1)} \\
+        &= \left[ N \cdot \frac{1}{N} \left( 1 - \frac{1}{N} \right) \right] + 2 \binom{N}{2} \cdot \frac{1}{N^2 (N-1)} \\
+        &= \left( 1 - \frac{1}{N} \right) + 2 \frac{N!}{2! (N-2)!} \cdot \frac{1}{N^2 (N-1)} \\
+        &= 1 - \frac{1}{N} + \frac{1}{N} \\
+        &= 1.
+    \end{align*}
+    For $\binom{N}{2}$, note that we are summing the covariance terms for all distinct pairs of $X_i$ and $X_j$. We are wanting to decide how many terms we are adding (choosing 2 out of $N$ objects without replacement).
 \end{example}
 
 
