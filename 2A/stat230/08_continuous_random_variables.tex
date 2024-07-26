@@ -28,7 +28,7 @@ We use the cumulative distribution function $F(x)$ and the probability density f
     \phantom{}\\
     The \textbf{probability density function} $f(x)$ for a continous random variable $X$
     is the derivative \[f(x) = \frac{\dd{F(x)}}{\dd{x}},\]
-    where $F(X)$ is the cumulative distribution function for $X$.
+    where $F(x)$ is the cumulative distribution function for $X$.
 \end{definition}
 
 \begin{note}
@@ -40,7 +40,7 @@ We use the cumulative distribution function $F(x)$ and the probability density f
 
 \begin{theorem}[\textbf{Properties of a p.d.f.}]
     \phantom{}\\
-    Assume that $f(x)$ is a continuous function of $x$ at  all points for which $0 < F(X) < 1$.
+    Assume that $f(x)$ is a continuous function of $x$ at  all points for which $0 < F(x) < 1$.
 \begin{enumerate}
     \item $\dis P(a \leq X \leq b) = F(b) - F(a) = \int_{a}^{b} f(x) \, dx$. \vspace{1mm}
     \item $f(x) \geq 0$ (since $F(x)$ is non-decreasing, so its derivative should be non-negative). \vspace{1mm}
@@ -79,7 +79,7 @@ We use the cumulative distribution function $F(x)$ and the probability density f
         \textbf{Solution:} $f(x) = \frac{\dd}{\dd{x}} \left( F(x) \right) = \frac{\dd}{\dd{x}} \left( \frac{x}{4} \right) = \frac{1}{4}$ for $0 < x \leq 4$. Note that outside this interval $f(x)$ is defined to be 0.
         \item Solve for the 90th percentile, i.e. solve for the value of $x$ \st the area under the curve to its left is 0.9. \\
         \textbf{Solution:} Note that the $f(x) = \frac{1}{4}$ is a constant function. \\
-        We need to solve for $x$: $F(X) = P(X \leq x) = 0.9$. So, $\frac{1}{4} x = 0.9 \implies x = 3.6$.
+        We need to solve for $x$: $F(x) = P(X \leq x) = 0.9$. So, $\frac{1}{4} x = 0.9 \implies x = 3.6$.
     \end{enumerate}
 \end{example}
 
@@ -209,12 +209,12 @@ the p.d.f. or c.d.f. for some other random variable $Y$, a function of $X$. The 
     \]
     \begin{enumerate}[label=(\alph*)]
         \item Find the constant k. \quad \textbf{Ans:} $k = 1$
-        \item Find the c.d.f. $F(X)$ for all values of $x$. \quad
+        \item Find the c.d.f. $F(x)$ for all values of $x$. \quad
         \textbf{Ans:} 
         $F(x) = 
         \begin{cases} 
             0 & x \leq 0 \\
-            \frac{2}{3} x^{3/2} & 0 < x \leq 1 \\
+            \frac{2}{3} x^{3/2} & 0 \leq x \leq 1 \\
             1 - \frac{1}{3x^3} & x > 1
         \end{cases}$
         \item Find $P(\frac{1}{3} < X < 3)$. \quad \textbf{Ans:} 0.8594
