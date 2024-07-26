@@ -544,7 +544,7 @@ a rescaled version of the covariance, scaled to lie in the interval $[-1, 1]$.
 \begin{theorem}[\textbf{Results for Covariance}]
     \phantom{}
     \begin{enumerate}
-        \item $\Cov{X,Y} = \Var{X}$.
+        \item $\Cov{X,X} = \Var{X}$.
         \item $\Cov{aX+bY,cU+dV} = ac\Cov{X,U} + ad\Cov{X,V} \\ \hspace*{40mm}+ bc\Cov{Y,U} + bd\Cov{Y,V}$.
     \end{enumerate}
 \end{theorem}
@@ -567,7 +567,7 @@ a rescaled version of the covariance, scaled to lie in the interval $[-1, 1]$.
         \item \textbf{Variance of a general linear combination of random variables:} \\
         Let $a_i$ be constants. Then \vspace{-3mm}
         \[
-            \Var{\displaystyle \sum_{i=1}^{n} a_iX_i} = \displaystyle \sum_{i=1}^{n} a_i^2\Var{X_i} + 2\displaystyle \sum_{i=1}^{n} \sum_{j=i+1}^{n} a_i a_j \Cov{X_i,X_i}. 
+            \Var{\displaystyle \sum_{i=1}^{n} a_iX_i} = \displaystyle \sum_{i=1}^{n} a_i^2\Var{X_i} + 2\displaystyle \sum_{i=1}^{n} \sum_{j=i+1}^{n} a_i a_j \Cov{X_i,X_j}. 
         \]
         \pagebreak
         \item \textbf{Variance of a linear combination of independent random variables:} \\
@@ -616,7 +616,7 @@ a rescaled version of the covariance, scaled to lie in the interval $[-1, 1]$.
         Then, $Y \sim N(a\mu + b, a^2\sigma^2)$.
         \item Let $X \sim N(\mu_1, \sigma_1^2)$ and $Y \sim N(\mu_2, \sigma_2^2)$ be independent random variables, and let $a$ and $b$ be constants.
         Then, $aX+bY \sim \text{N}(a\mu_1 + b\mu_2, a^2\sigma_1^2 + b^2\sigma_2^2)$. \\
-        In general, if $X_i \sim \text{N}(\mu_i, \sigma_i^2)$, $i=1,2,\ldots,n$, are independent random variables and $a_1,a_2,\ldots a_n \in \R$, then $\displaystyle \sum_{i=1}^{n} a_iX_i \sim \text{N}\left( \displaystyle \sum_{i=i}^{n} a_i\mu_i, \displaystyle \sum_{i=1}^{n} a_i^2 \sigma_i^2 \right)$.
+        In general, if $X_i \sim \text{N}(\mu_i, \sigma_i^2)$, $i=1,2,\ldots,n$, are independent random variables and $a_1,a_2,\ldots a_n \in \R$, then $\displaystyle \sum_{i=1}^{n} a_iX_i \sim \text{N}\left( \displaystyle \sum_{i=1}^{n} a_i\mu_i, \displaystyle \sum_{i=1}^{n} a_i^2 \sigma_i^2 \right)$.
         \item Let $X_1, X_2, \ldots, X_n$ be independent $N(\mu, \sigma^2)$ random variables. Then
         $\dis \sum_{i=1}^{n} X_i \sim N(n\mu, n\sigma^2)$ and $\overline{X} \sim N(\mu, \frac{\sigma^2}{n})$.
     \end{enumerate}
@@ -650,7 +650,7 @@ a rescaled version of the covariance, scaled to lie in the interval $[-1, 1]$.
     \begin{enumerate}[label=(\alph*)]
         \item Let $W = 2X - Y$. Then $\expect{W} = 2\expect{X} - \expect{Y} = 10 - 7 = 3$ and $\Var{W} = 4\Var{X} + \Var{Y} = 16 + 3^2 = 25$. Next, \vspace{-3mm}
         \begin{align*}
-            P(|2X - Y|> 4) = P(|W|>4) &= P(W>4) + P(W<4) \\
+            P(|2X - Y|> 4) = P(|W|>4) &= P(W>4) + P(W<-4) \\
             &= P(Z > \frac{4-3}{5}) + P(Z < \frac{-4-3}{5}) \\
             &= P(Z > 0.2) + P(Z < -1.4) \\
             &= \left[ 1 - P(Z \leq 0.2) \right] + \left[ 1 - P(Z \leq 1.4) \right]
@@ -676,7 +676,7 @@ a rescaled version of the covariance, scaled to lie in the interval $[-1, 1]$.
 An indicator variable is a binary variable (0 or 1) that indicates whether or not an event has occurred. It can allow us to take more complicated scenarios and break them into simpler ones.
 
 \begin{example}
-    Let $X \sim \text{N}(n,p)$. Define new random variables $X_i$ by \vspace{-3mm}
+    Let $X \sim \text{Bin}(n,p)$. Define new random variables $X_i$ by \vspace{-3mm}
     \[
         X_i = 
         \begin{cases} 
@@ -687,7 +687,7 @@ An indicator variable is a binary variable (0 or 1) that indicates whether or no
 
     The random variable $X_i$ indicates whether `success' occured on the $i^\text{th}$ trial. The total number of successes is $X = \displaystyle \sum_{i=1}^{n} X_i$. We can find the mean and variance of $X_i$ and then use our results for mean and variance to find $\mu$ and $\sigma^2$ of $X$. First, \vspace{-3mm}
     \[
-        \expect{X_i} = \displaystyle \sum_{x_1=0}^{1} f(x_i) = 0f(0) + 1f(1) = f(1). 
+        \expect{X_i} = \displaystyle \sum_{x_i=0}^{1} x_i f(x_i) = 0f(0) + 1f(1) = f(1). 
     \]
     But $f(1) = p$ since $P(\text{success}) = p$ on each trial. Therefore $\expect{X_i} = p$. And since $X_i = 0$ or 1, so $X_i = X_i^2$, and therefore 
     \[
@@ -752,19 +752,19 @@ An indicator variable is a binary variable (0 or 1) that indicates whether or no
     \begin{align*}
         \Cov{X_i,X_j} &= \expect{X_i X_j} - \expect{X_i}\expect{X_j} \\
         &= \frac{1}{N(N-1)} - \left( \frac{1}{N} \right) \left( \frac{1}{N} \right) \\
-        &= \frac{1}{N} \left( \frac{1}{N-1} \frac{1}{N} \right) \\
+        &= \frac{1}{N} \left( \frac{1}{N-1} - \frac{1}{N} \right) \\
         &= \frac{1}{N^2 (N-1)}.
     \end{align*}
     Therefore,
     \begin{align*}
-        \Var{X} = \Var{\displaystyle \sum_{i=1}^{n} X_i} &= \displaystyle \sum_{i=1}^{n} \Var{X_i} + 2 \displaystyle \sum_{i < j}^{n} \Cov{X_i,X_j} \\
-        &= \displaystyle \sum_{i=1}^{n} \frac{1}{N} \left( 1 - \frac{1}{N} \right) + 2 \displaystyle \sum_{i<j}^{n} \frac{1}{N^2 (N-1)} \\
+        \Var{X} = \Var{\displaystyle \sum_{i=1}^{n} X_i} &= \displaystyle \sum_{i=1}^{N} \Var{X_i} + 2 \displaystyle \sum_{i < j}^{N} \Cov{X_i,X_j} \\
+        &= \displaystyle \sum_{i=1}^{N} \frac{1}{N} \left( 1 - \frac{1}{N} \right) + 2 \displaystyle \sum_{i<j}^{N} \frac{1}{N^2 (N-1)} \\
         &= \left[ N \cdot \frac{1}{N} \left( 1 - \frac{1}{N} \right) \right] + 2 \binom{N}{2} \cdot \frac{1}{N^2 (N-1)} \\
         &= \left( 1 - \frac{1}{N} \right) + 2 \frac{N!}{2! (N-2)!} \cdot \frac{1}{N^2 (N-1)} \\
         &= 1 - \frac{1}{N} + \frac{1}{N} \\
         &= 1.
     \end{align*}
-    For $\binom{N}{2}$, note that we are summing the covariance terms for all distinct pairs of $X_i$ and $X_j$. We are wanting to decide how many terms we are adding (choosing 2 out of $N$ objects without replacement).
+    For $\binom{N}{2}$, note that we are summing the covariance terms for all distinct pairs of $X_i$ and $X_j$. We are wanting to decide how many combinations $X_i,X_j$ are there for which $i < j$. Each $i$ and $j$ takes values from $1,2,\ldots,N$ so there are $\binom{N}{2}$ different combinations of $(i,j)$ values.
 \end{example}
 
 
