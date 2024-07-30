@@ -34,7 +34,7 @@ The normal distribution is commonly used because it tends to approximate the dis
     \begin{itemize}
         \item Although this theorem is about limits, we will use it when $n$ is large, but finite.
         \item This theorem works for all distributions except those whose $\mu$ and $\sigma^2$ do not exist.
-        \item The accuracy of the approximation depends on $n$ (bigger is better) and on the actual distribution $X_i$'s. It works for small $n$ when $X_i$'s p.d.f. is close to symmetric.
+        \item The accuracy of the approximation depends on $n$ (bigger is better) and on the actual distribution $X_i$'s. It works well for small $n$ when $X_i$'s p.d.f. is close to symmetric.
     \end{itemize}
 \end{note}
 
@@ -191,14 +191,41 @@ Since $X_i$ are discrete, so $S_{100}$ is also discrete and cannot take non-inte
 
 
 \begin{example}
-    Suppose $X \sim \text{Poi(9)}$. Use the Normal approximation to approximate $P(X > 9)$, and cpmare with the true value.
+    Suppose $X \sim \text{Poisson}(9)$. Use the Normal approximation to approximate $P(X > 9)$, and cpmare with the true value.
 
-    By above theorem, we have $Z = \frac{X-\mu}{\sqrt{\mu}}$. Using continuity correction, \vspace{-3mm}
+    By Normal approximation to Poisson, we have $Z = \frac{X-\mu}{\sqrt{\mu}}$. Using continuity correction, \vspace{-3mm}
     \[
         P(X > 9) \approx P(X > 9 \text{ } {\color{blue} + \text{ } 0.5}) = P \left( Z > \frac{9.5 - 9}{\sqrt{9}} \right) = P(Z > 0.17) = 0.4324.
     \]
     Note: the true value is 0.4126.
 \end{example}
+
+\begin{example}
+    Suppose $X \sim \text{Binomial}(20,0.4)$. Find the approximate probability $P(4 \leq X \leq 12)$ and compare it to the true value.
+
+    \textbf{Solution:} Note that $\expect{X} = np = 8$ and $\Var{X} = np(1-p) = 4.8$. By the Normal approximation to the Binomial, we have $X \sim \text{N}(8,4.8)$ approximately.
+    \begin{align*}
+        P(4 \leq X \leq 12) &\approx P(4 \text{ } {\color{blue} - \text{ } 0.5} \leq X \leq 12 \text{ } {\color{blue} + \text{ } 0.5}) \\
+        &= P \left( \frac{3.5 - 8}{\sqrt{4.8}} \leq \frac{X - 8}{\sqrt{4.8}} \leq \frac{12.5 - 8}{\sqrt{4.8}} \right) \\
+        &= P(-2.054 \leq Z \leq 2.054) \\
+        &\vdots \\
+        &= 0.96.
+    \end{align*}
+    Note: the true value is $\displaystyle \sum_{x=4}^{12} \binom{20}{x} (0.4)^x (0.6)^{20-x} = 0.963$. \\
+\end{example}
+
+\begin{example}
+    Let $p$ be the proportion of Canadians who think Canada should adopt the US dollar.
+    \begin{enumerate}[label=(\alph*)]
+        \item Suppose 400 Canadians are randomly chosen and asked their opinion. Let $X$ be the number who say yes. Find the probability that the proportion, $X/400$, of people who say yes is within 0.02 of $p$, if $p$ is 0.20.
+        \quad \textbf{Ans:} $2P(Z < 1.06) - 1 = 0.711$.
+        \item Find the number, n, who must be surveyed so there is a $95\%$ chance that $X/n$ lies within 0.02 of $p$, when $p$ is unknown.
+        
+        \textbf{Ans:} $Z = 1.96 = \frac{0.02}{\sqrt{\frac{p(1-p)}{n}}}$. Set $(p(1-p))^\prime = 0$ to find the max $p = 0.5$. Sub in $p = 0.5$ to get $n = 2401$, and this works for all $p$ since it works for the max $p$.
+    \end{enumerate}
+\end{example}
+
+\pagebreak
 
 \subsection{Moment Generating Functions}
 
@@ -210,7 +237,7 @@ So far, we have seen two functions which characterize a distribution of a random
 However, there is a third function which also \textbf{uniquely} determines a distribution: the \textbf{moment generating function}.
 
 
-\begin{definition}[\textbf{Moment Generating Functions}]
+\begin{definition}[\textbf{Moment Generating Functions for Discrete}]
     \phantom{}\\
     Consider a discrete random variable $X$ with probability function $f(x)$. The moment generating function (m.g.f.) of $X$ is defined as \vspace{-3mm}
     \[
@@ -224,6 +251,8 @@ The m.g.f. of $X$ can be used to evaluate the moments of the random variable $X$
     \expect{X^k} \text{ is the $k^{\text{th}}$ moment of $X$.}
 \]
 
+\vspace{-3mm}
+
 \begin{example}
     \phantom{}\
     \begin{itemize}
@@ -232,24 +261,162 @@ The m.g.f. of $X$ can be used to evaluate the moments of the random variable $X$
     \end{itemize}
 \end{example}
 
+\vspace{2mm}
 
 \begin{theorem}
     \phantom{}\\
     Suppose the random variable $X$ has moment generating function $M(t)$ defined $\forall t \in [-a,a]$ for some $a > 0$. Then \vspace{-3mm}
     \[
-        \expect{X^k} = 
+        \expect{X^k} = M^{(k)}(0) \quad \text{for $k = 1,2,\ldots$}
     \]
+    where $M^{(k)}(0) = \dis \frac{\dd^k}{\dd{t^k}} M(t) \, |_{t=0} \quad \text{for } k = 1, 2, \ldots$
 \end{theorem}
 
+\pagebreak
 
+\begin{example}[\textbf{MGF for Binomial}]
+    \phantom{}\\
+    Suppose $X \sim \text{Binomial}(n,p)$. Then its moment generating function is
+    \begin{align*}
+        M(t) &= \displaystyle \sum_{x=0}^{n} e^{tx} \binom{n}{x} p^x (1-p)^{n-x} \\
+        &= \displaystyle \sum_{x=0}^{n} \binom{n}{x} (p e^t)^x (1-p)^{n-x} \\
+        &=(pe^t + 1 - p)^n \quad \text{by the Binomial Theorem $\forall t$.}
+    \end{align*}
+    Therefore, \vspace{-3mm}
+    \begin{align*}
+        M^\prime(t) &= npe^t \left(pe^t + 1 - p\right)^{n-1} \\
+        M^\dprime(t) &= npe^t \left(pe^t + 1 - p\right)^{n-1} + n(n-1)p^2 e^{2t} \left(pe^t + 1 - p\right)^{n-2}
+    \end{align*}
+    and so
+    \begin{align*}
+        \expect{X} &= m^\prime(0) = np \\
+        \expect{X^2} &= M^\dprime(0) = np + n(n-1)p^2 \\
+        \Var{X} &= \expect{X^2} - \left( \expect{X} \right)^2 = np(1-p).
+    \end{align*}
+\end{example}
+
+\begin{example}[exercise]
+    Find the m.g.f. for a Poisson distrubition $X \sim \text{Poisson}(\mu)$. \\
+\end{example}
+
+\begin{theorem}[\textbf{Uniqueness Theorem for MGFs}]
+    \phantom{}\\
+    Suppose that random variables $X$ and $Y$ have moment generating functions $M_X(t)$ and $M_Y(t)$, respectively. If $M_X(t) = M_Y(t) \; \forall t$, then $X$ and $Y$ have the same distribution.
+\end{theorem}
+
+The m.g.f. uniquely identifies a distribution. For example, if $X$ has m.g.f.: $e^{2(e^t -1)}$. Then, you can immediately tell that $X \sim \text{Poisson}(2)$.
+
+MGFs can also be used to determine that a sequence of distributions gets closer and closer to some limiting distribution. To show this, suppose that a sequence of probability functions $f_n(x)$ have corresponding moment generating functions: \vspace{-3mm}
+\[
+    M_n(t) = \displaystyle \sum_{\text{all $x$}} e^{tx} f_n(x).
+\]
+And suppose that the probability functions $f_n(x)$ converge to another probability function $f(x)$ pointwise in $x$ as $n \to \infty$. Then since
+\vspace{-3mm}
+\[
+    f_n(x) \to f(x) \text{ as $n \to \infty$ for each $x$},
+\]
+we have \vspace{-3mm}
+\[
+    \sum_{\text{all $x$}} e^{tx} f_n(x) \to \sum_{\text{all $x$}} e^{tx} f(x) \text{ as $n \to \infty$ for each $t$}.
+\]
+In other words, $M_n(t)$ converges to $M(t)$, the moment generating function of the limiting distribution.
+
+\textbf{Note:} The converse also holds. Suppose that $X_n$ has m.g.f. $M_n(t)$ and $M_n(t) \to M(t)$ for each $t$, such that $M(t) < \infty$, then
+\vspace{-3mm}
+\[
+    f_n(x) \to f(x) \text{ as $n \to \infty$ for each $x$}.
+\]
+
+\begin{example}
+    The Poisson approximation of the Binomial distribution when $n$ is very large and $p$ is close to 0.
+
+    $\mu = np \implies p = \frac{\mu}{n}$. Then, the m.g.f. of such a Binomial random variable:
+    \begin{align*}
+        M(t) &= (pe^t + 1 - 1)^n \\
+        &= \left[ 1 + p(e^t -1) \right]^n \\
+        &= \left[ 1 + \frac{\mu}{n} (e^t -1) \right]^n.
+    \end{align*}
+    Now, take the limit of this expression as $n \to \infty$. Since $\dis \lim_{n \to \infty} \left( 1 + \frac{c}{n} \right)^n \to e^c$, we have
+    \[
+        \lim_{n \to \infty} \left[ 1 + \frac{\mu}{n} (e^t -1) \right]^n = e^{\mu(e^t -1)},
+    \]
+    and this is the m.g.f. of a Poisson distribution with parameter $\mu$. This shows a little more formally that the Binomial distribution with small $p$ and large $n$ approaches the Poisson distribution with $\mu = np$  as $n \to \infty$.
+\end{example}
+
+\pagebreak
+
+\textbf{Moment Generating Function of a Continuous Random Variable}
+
+\begin{definition}[\textbf{Moment Generating Functions for Continous}]
+    \phantom{}\\
+    Consider a continuous random variable $X$ with probability density function $f(x)$. Then moment generating function of $X$ is defined as
+    \vspace{-3mm}
+    \[
+        M(t) = \expect{e^{tx}} = \displaystyle \int_{-\infty}^{\infty} e^{tx} f(x) \, dx.
+    \]
+    We will assume that the m.g.f. is defined and finite for values of $t$ in an interval around 0. That is, for some $a > 0$, $\displaystyle \int_{-\infty}^{\infty} e^{tx} f(x) \, dx < \infty \; \forall t \in [-a,a]$.
+\end{definition}
+
+\begin{example}
+    Suppose that $X \sim \text{Exponential}(\theta)$. Show that the m.g.f. is given by \vspace{-3mm}
+    \[
+        M(t) = \frac{1}{1 - \theta t} \quad \text{for $t < \frac{1}{\theta}$}.
+    \]
+    \textbf{Solution:} Recall that $\Gamma(\alpha) = \displaystyle \int_{0}^{\infty} x^{\alpha -1} e^{-x} \, dx$. By definition, we have \vspace{-3mm}
+    \begin{align*}
+        M(t) &= \displaystyle \int_{0}^{\infty} e^{tx} \lambda e^{-\lambda x} \, dx \\
+        &= \lambda \displaystyle \int_{0}^{\infty} e^{tx} x^{1-1} e^{-x(\lambda - t)} \, dx \quad \text{let $u = x(\lambda - t)$}, dx = \frac{du}{\lambda - t} \\
+        &= \dis \frac{\lambda}{\lambda - t} \displaystyle \int_{0}^{\infty} \left( \frac{u}{\lambda - t} \right)^{1-1} e^u \, dx \\
+        &= \dis \frac{\lambda}{\lambda - t} \displaystyle \int_{0}^{\infty} u^{1-1} e^u \, dx \\
+        &= \dis \frac{\lambda}{\lambda - t} \cdot \Gamma(1) \\
+        &= \dis \frac{\lambda}{\lambda - t} \\
+        &= \dis \frac{1}{1 - \theta t} \quad \text{since $\theta = \frac{1}{\lambda}$}.
+    \end{align*}
+    Notice that $\lambda - t > 0$ is necessary for the integral to converge, so we have $t < \lambda = \frac{1}{\theta}$.
+\end{example}
+
+\pagebreak
+
+\begin{proposition}[\textbf{Summary of MGFs}]
+    \phantom{}\\
+    For discrete random variables:
+    \begin{itemize} \itemsep 1.5pt
+        \item If $X \sim \text{Binomial}(n,p)$, then $M(t) = (pe^t + 1 - p)^n$, $t \in \R$.
+        \item If $X \sim \text{Poisson}(\mu)$, then $M(t) = e^{\mu (e^t -1)}$, $t \in \R$.
+        \item If $X \sim \text{NB}(k,p)$, then $\dis M(t) = \left( \frac{p}{1- (1-p)e^t} \right)^k$, $t < - \ln(1-p)$.
+        \item If $X \sim \text{Geometric}(p)$, then $\dis M(t) = \frac{p}{1- (1-p)e^t}$, $t < - \ln(1-p)$.
+    \end{itemize}
+    For continuous random variables:
+    \begin{itemize} \itemsep 1.5pt
+        \item If $X \sim \text{U}(k,p)$, then $\dis M(t) = \frac{e^{bt} - e^{at}}{(b-a)t}$, $t \neq 0$.
+        \item If $X \sim \text{Exponential}(\theta)$, then $\dis M(t) = \frac{1}{1- \theta t}$, $t < - \frac{1}{\theta}$.
+        \item If $X \sim \text{NB}(k,p)$, then $\dis M(t) = e^{\mu t + \frac{\sigma^2 t^2}{2}}$, $t \in \R$.
+    \end{itemize}
+\end{proposition}
+
+\phantom{}\\
 
 \subsection{Motivariate Moment Generating Functions}
 
+Did-not-have-time-to-cover material. \\
+\phantom{}\\
+\phantom{}\\
+\phantom{}\\
+\phantom{}\\
+\phantom{}\\
+\phantom{}\\
+\phantom{}\\
+\phantom{}\\
+\phantom{}\\
+\phantom{}\\
+\phantom{}\\
+\phantom{}\\
+\phantom{}\\
+% \vspace{0.5mm}
 
-
-
-
-
+\begin{center}
+    {\LARGE END OF STAT 230!}
+\end{center}
 
 
 
