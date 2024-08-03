@@ -365,7 +365,7 @@ In other words, $M_n(t)$ converges to $M(t)$, the moment generating function of 
     \textbf{Solution:} Recall that $\Gamma(\alpha) = \displaystyle \int_{0}^{\infty} x^{\alpha -1} e^{-x} \, dx$. By definition, we have \vspace{-3mm}
     \begin{align*}
         M(t) &= \displaystyle \int_{0}^{\infty} e^{tx} \lambda e^{-\lambda x} \, dx \\
-        &= \lambda \displaystyle \int_{0}^{\infty} e^{tx} x^{1-1} e^{-x(\lambda - t)} \, dx \quad \text{let $u = x(\lambda - t)$}, dx = \frac{du}{\lambda - t} \\
+        &= \lambda \displaystyle \int_{0}^{\infty} x^{1-1} e^{-x(\lambda - t)} \, dx \quad \text{let $u = x(\lambda - t)$}, dx = \frac{du}{\lambda - t} \\
         &= \dis \frac{\lambda}{\lambda - t} \displaystyle \int_{0}^{\infty} \left( \frac{u}{\lambda - t} \right)^{1-1} e^u \, dx \\
         &= \dis \frac{\lambda}{\lambda - t} \displaystyle \int_{0}^{\infty} u^{1-1} e^u \, dx \\
         &= \dis \frac{\lambda}{\lambda - t} \cdot \Gamma(1) \\
