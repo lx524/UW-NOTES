@@ -117,7 +117,7 @@ General idea of the C.L.T. is that it takes any distribution and makes it normal
     \phantom{}\\
     When approximating a discrete random variable, a slight adjustment is required to improve the approximation. 
 
-For example, we are in a `100-cup challenge', we bought 100 cups to see how many times we win. We want to find the probability of having between 15 to 20 winning cups. 
+For example, we are in a `100-cup challenge' where $P(\text{winning cup}) = \frac{1}{6}$, we bought 100 cups to see how many times we win. We want to find the probability of having between 15 to 20 winning cups. 
 
 Let $X_i = $ whether the $i^{\text{th}}$ cup is a winning cup. Then $X_i \sim \text{Binomial}(n=1,p=\frac{1}{6})$ for $i = 1,2,\ldots,100$. And $\expect{X_i} = \frac{1}{6}$, $\Var{X_i} = \frac{5}{36}$, with $S_{100} = \displaystyle \sum_{i=1}^{100} X_i = $ total number of winning cups. By the CLT, we have $S_{100}$ approximately have $\text{N}(\frac{100}{6}, \frac{500}{36})$, we'll see a theorem below about this. Then,
 \[
