@@ -326,8 +326,8 @@ Hence in the first $x+k-1$ trials, we observe $x$ failures and $(k-1)$ successes
 Hence \[f(x) = P(X=x) = \binom{x+k-1}{x}p^k(1-p)^x \quad \text{for $x = 0,1,\ldots$ and $0 < p < 1$}.\]
 
 \begin{note}
-    An alternate version of Negative Binomial Distribution defined $X$ to be the total number of trials needed to get the $k$th success. We'll have something like: $X-4 \sim \text{NB}(k,p)$, 
-    where 4 is just an example here, representing the number of successes before the 5th success.
+    An alternate version of Negative Binomial Distribution defined $X$ to be the total number of trials needed to get the $k$th success. We'll have something like: $X-5 \sim \text{NB}(k,p)$, 
+    where 5 is just an example here, representing the number of successes before the 5th success.
 \end{note}
 
 \textbf{Binomial vs. Negative Binomial}
@@ -507,7 +507,7 @@ has a Poisson distribution with $\mu = \lambda t$.
 
 
 The Poisson process also applies when ``events'' occur randomly in space. If $X$ represents the number of events in a volume or area in space of size $v$,
-and if $\lambda$ is the average number of events per unit voilume (or area), then $X$ has a Poisson distribution with $\mu = \lambda v$.
+and if $\lambda$ is the average number of events per unit volume (or area), then $X$ has a Poisson distribution with $\mu = \lambda v$.
 
 The model is valid when we replace ``time'' by ``volume'' or ``area''.
 
