@@ -289,7 +289,7 @@ occurrence. Then X has an exponential distribution.
 
 \textbf{P.D.F. and C.D.F}:
 \begin{align*}
-    F(X) = P(X \leq x) &= P(\text{time to 1st occurrence} \leq x) \\
+    F(x) = P(X \leq x) &= P(\text{time to 1st occurrence} \leq x) \\
     &= 1 - P(\text{time to 1st occurrence} > x) \\
     &= 1 - P(\text{0 occurrences in $(0,x)$}) \\
     &= 1 - \frac{e^{-\lambda x}(\lambda x)^0}{0!} \\
@@ -624,7 +624,7 @@ Consider the distribution of heights of young women aged 18 to 24. The distribut
             P(-\frac{1}{\sigma} < Z < \frac{1}{\sigma}) &\geq 0.999
         \end{align*}
         Using a sketch of the normal distribution, the probability within $(-\frac{1}{\sigma},\frac{1}{\sigma})$ $\geq$ 0.999. This means that we have probability $\leq$ 0.0005 at each side of the distribution. \\
-        $\implies P(Z \leq \frac{1}{\sigma}) \geq 0.995$ So, $\frac{1}{\sigma} = 3.29$.
+        $\implies P(Z \leq \frac{1}{\sigma}) \geq 0.9995$ So, $\frac{1}{\sigma} = 3.29$.
 
         Therefore, we must have $\sigma \leq 0.30395$, need to reduce $\sigma$ by about 0.29605.
     \end{enumerate}

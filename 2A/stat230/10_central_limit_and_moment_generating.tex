@@ -289,7 +289,7 @@ The m.g.f. of $X$ can be used to evaluate the moments of the random variable $X$
     \end{align*}
     and so
     \begin{align*}
-        \expect{X} &= m^\prime(0) = np \\
+        \expect{X} &= M^\prime(0) = np \\
         \expect{X^2} &= M^\dprime(0) = np + n(n-1)p^2 \\
         \Var{X} &= \expect{X^2} - \left( \expect{X} \right)^2 = np(1-p).
     \end{align*}
@@ -332,7 +332,7 @@ In other words, $M_n(t)$ converges to $M(t)$, the moment generating function of 
 
     $\mu = np \implies p = \frac{\mu}{n}$. Then, the m.g.f. of such a Binomial random variable:
     \begin{align*}
-        M(t) &= (pe^t + 1 - 1)^n \\
+        M(t) &= (pe^t + 1 - p)^n \\
         &= \left[ 1 + p(e^t -1) \right]^n \\
         &= \left[ 1 + \frac{\mu}{n} (e^t -1) \right]^n.
     \end{align*}

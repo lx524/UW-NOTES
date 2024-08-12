@@ -85,7 +85,7 @@
 
 \begin{definition}[\textbf{Marginal Distributions}]
     \phantom{}\\
-    Given the joint probability function of $X$ and $Y$, the \textbf{Marginal distributions} are give by
+    Given the joint probability function of $X$ and $Y$, the \textbf{marginal distributions} are give by
     \begin{itemize}
         \item $f_1(x) = f_X(x) = \displaystyle \sum_{\text{all } y} f(x,y)$, with $x$ fixed.
         \item  $f_2(y) = f_Y(y) = \displaystyle \sum_{\text{all } x} f(x,y)$, with $y$ fixed.
@@ -270,8 +270,7 @@ Let the probabilities of these $\mathbf{k}$ types be $\mathbf{p_1,p_2,\ldots,p_k
 
 \textbf{Joint Probability Function:}
 
-There are $\dis \binom{n}{x_1} \binom{n-x_1}{x_2} \cdots \binom{n-x_1 - \cdots - x_{k-1}}{x_k} = \frac{n!}{x_1! x_2! \cdots x_k!}$ number of ways to arrange $x_1$ items
-
+There are $\dis \binom{n}{x_1} \binom{n-x_1}{x_2} \cdots \binom{n-x_1 - \cdots - x_{k-1}}{x_k} = \frac{n!}{x_1! x_2! \cdots x_k!}$ number of ways to arrange $x_1$ items \vspace{-3mm} \\ 
 of the $1^{\text{st}}$ type, $x_2$ items of the $2^{\text{nd}}$ type, $\ldots$, $x_k$ items of the $k^{\text{th}}$ type with a total of $n$ trials.
 
 Each of these arrangements has probability $p_1^{x_1}p_2^{x_2} \cdots p_k^{x_k}$ since $p_1$ is multiplied $x_1$ times in some order, etc, and trials are independent. Therefore,
@@ -343,17 +342,17 @@ $X_1 | T=t \sim \text{Bin}(t, \frac{p_1}{p_1 + p_2})$. So $f(x_1|t) = \binom{t}{
             &= 1 - \left[ \binom{8}{0} (0.5)^0 (0.5)^8 + \binom{8}{1} (0.5)^1 (0.5)^7 + \binom{8}{2} (0.5)^2 (0.5)^6 \right]
         \end{align*}
         \item $X_1,X_2 \sim \text{Multinomial}(n=8,p_1=0.2,p_2=0.5,1-p_1 -p_2 = 0.3)$. \\
-        Therefore, $f(x_1,x_2) = \frac{8!}{x_1! x_2! (8-x_1 - x_2)!}0.2^{x_1}0.5^{x_2x} 0.3^{8-x_1-x_2}$.
+        Therefore, $f(x_1,x_2) = \frac{8!}{x_1! x_2! (8-x_1 - x_2)!}0.2^{x_1}0.5^{x_2} 0.3^{8-x_1-x_2}$. \\
     \end{enumerate}
 \end{example}
 
 
-
-\pagebreak
-
 \subsection{Markov Chains}
 
 Not covered material.
+
+
+\pagebreak
 
 
 \subsection{Expectation for Multivariate Distributions: Covariance and Correlation}
@@ -516,8 +515,8 @@ a rescaled version of the covariance, scaled to lie in the interval $[-1, 1]$.
             \multicolumn{2}{c|}{f(x,y)} & 0 & 1 & 2 & f_Y(y) \\
             \hline
             \multirow{2}{*}{y} 
-              & 1 & 0.06 & 0.15 & 0.09 & 0.3 \\
-              & 2 & 0.14 & 0.35 & 0.21 & 0.7 \\
+              & 0 & 0.06 & 0.15 & 0.09 & 0.3 \\
+              & 1 & 0.14 & 0.35 & 0.21 & 0.7 \\
             \hline
             \multicolumn{2}{c|}{f_X(x)} & 0.2 & 0.5 & 0.3 & 1
         \end{array}
@@ -594,7 +593,7 @@ a rescaled version of the covariance, scaled to lie in the interval $[-1, 1]$.
     
     $\implies \overline{X}$ is less variable than $X_i$ (the larger $n$ is the less variability there is).
     \begin{itemize}
-        \item This happens because as n increases, e are adding more
+        \item This happens because as n increases, we are adding more
         information and so our sample mean. $\overline{X}$ is becoming \textbf{more precise} in sense that we have \vspace{-3mm}
         \[
             \Var{\overline{X}} \to 0 \text{ as } n \to \infty.
@@ -757,14 +756,14 @@ An indicator variable is a binary variable (0 or 1) that indicates whether or no
     \end{align*}
     Therefore,
     \begin{align*}
-        \Var{X} = \Var{\displaystyle \sum_{i=1}^{n} X_i} &= \displaystyle \sum_{i=1}^{N} \Var{X_i} + 2 \displaystyle \sum_{i < j}^{N} \Cov{X_i,X_j} \\
+        \Var{X} = \Var{\displaystyle \sum_{i=1}^{N} X_i} &= \displaystyle \sum_{i=1}^{N} \Var{X_i} + 2 \displaystyle \sum_{i < j}^{N} \Cov{X_i,X_j} \\
         &= \displaystyle \sum_{i=1}^{N} \frac{1}{N} \left( 1 - \frac{1}{N} \right) + 2 \displaystyle \sum_{i<j}^{N} \frac{1}{N^2 (N-1)} \\
         &= \left[ N \cdot \frac{1}{N} \left( 1 - \frac{1}{N} \right) \right] + 2 \binom{N}{2} \cdot \frac{1}{N^2 (N-1)} \\
         &= \left( 1 - \frac{1}{N} \right) + 2 \frac{N!}{2! (N-2)!} \cdot \frac{1}{N^2 (N-1)} \\
         &= 1 - \frac{1}{N} + \frac{1}{N} \\
         &= 1.
     \end{align*}
-    For $\binom{N}{2}$, note that we are summing the covariance terms for all distinct pairs of $X_i$ and $X_j$. We are wanting to decide how many combinations $X_i,X_j$ are there for which $i < j$. Each $i$ and $j$ takes values from $1,2,\ldots,N$ so there are $\binom{N}{2}$ different combinations of $(i,j)$ values.
+    For $\binom{N}{2}$, note that we are summing the covariance terms for all distinct pairs of $X_i$ and $X_j$. We are wanting to decide how many combinations of $X_i,X_j$ are there for which $i < j$. Each $i$ and $j$ takes values from $1,2,\ldots,N$ so there are $\binom{N}{2}$ different combinations of $(i,j)$ values.
 \end{example}
 
 
